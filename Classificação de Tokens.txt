@@ -1,0 +1,105 @@
+Classificação de Tokens e Adequação da Gramática da Linguagem Cool
+
+1. Palavras-reservadas
+
+class, else, false, fi, if, in, inherits, isvoid, let, loop, pool, then, while, case, esac, new, of, not, true.
+
+É importante notar que, com exceção de true e false, as palavras-reservadas são case-insensitive. No entanto, para true e false, a 
+primeira letra deve ser minúscula, enquanto as letras subsequentes podem ser maiúsculas ou minúsculas 
+
+2. Identificadores
+Formato Geral: [A-Za-z][A-Za-z0-9_]* (uma letra seguida por zero ou mais letras, dígitos ou sublinhados).
+Identificadores de Tipo (Classes): Começam com uma letra maiúscula (ex.: Int, String, Object, MyClass).
+Identificadores de Objeto (Variáveis, Métodos): Começam com uma letra minúscula (ex.: x, myMethod, counter).
+Identificadores Especiais: self e SELF_TYPE são tratados de forma especial pela linguagem, mas não são considerados palavras-reservadas 
+
+3. Números
+Inteiro: Sequências não vazias de dígitos 0-9 (ex.: 0, 123, 007). Cool suporta inteiros assinados de 32 bits em complemento de dois 
+
+4. Strings
+
+Formato: "([^"\n]|\.)*" (qualquer caractere exceto aspas duplas ou nova linha, ou um caractere de escape).
+Caracteres de Escape: \b (backspace), \t (tab), \n (newline), \f (formfeed).
+Restrições: Não podem conter caracteres de nova linha não escapados, EOF ou o caractere nulo (\0). O comprimento máximo é de 1024 caracteres
+
+5. Operadores
+
+Aritméticos: + (adição), - (subtração), * (multiplicação), / (divisão), ~ (complemento de inteiro unário).
+Comparação: < (menor que), <= (menor ou igual), = (igualdade).
+Lógicos: not (complemento booleano unário).
+Atribuição: <-.
+Despacho: . (despacho de método), @ (despacho estático de método)
+
+6. Delimitadores e Símbolos Especiais
+
+Parênteses: ( ) (para expressões, listas de argumentos, parâmetros formais).
+Chaves: { } (para blocos de código, listas de características de classe).
+Colchetes: [ ] (para construções opcionais na gramática, não diretamente em código Cool).
+Ponto e Vírgula: ; (terminador de expressões em listas, definições de classe e características).
+Dois Pontos: : (para declaração de tipo).
+Vírgula: , (para separar elementos em listas).
+Ponto: . (para despacho de método).
+Seta Dupla: => (para ramos de case).
+
+7. Comentários
+Comentário de Linha Única: -- (todos os caracteres até o final da linha são ignorados).
+Comentário de Bloco: (* ... *) (todos os caracteres entre (* e *) são ignorados; podem ser aninhados) 
+
+8. Espaço em Branco
+
+Espaço (ASCII 32), \n (nova linha, ASCII 10), \f (form feed, ASCII 12), \r (retorno de carro, ASCII 13), \t (tabulação, ASCII 9), \v (tabulação vertical, ASCII 11)
+
+Adequação da Gramática
+
+program ::= [[class;]]+
+class ::= class TYPE [inherits TYPE] { [[feature;]]∗}
+feature ::= ID( [ formal [[,formal]]∗ ] ) : TYPE { expr }
+| ID : TYPE [ <- expr ]
+formal ::= ID : TYPE
+expr ::= ID <- expr
+| expr[@TYPE].ID( [ expr [[,expr]]∗ ] )
+| ID( [ expr [[,expr]]∗ ] )
+| if expr then expr else expr fi
+| while expr loop expr pool
+| { [[expr;]]+}
+| let ID : TYPE [ <- expr ] [[,ID : TYPE [ <- expr ]]]∗ in expr
+| case expr of [[ID : TYPE => expr;]]+esac
+| new TYPE
+| isvoid expr
+| expr + expr
+| expr − expr
+| expr ∗ expr
+| expr/expr
+| ˜expr
+| expr < expr
+| expr <= expr
+| expr = expr
+| not expr
+| (expr)
+| ID
+| integer
+| string
+| true
+| false
+
+Precedência	Operadores
+Mais 	.
+	@
+	~
+	isvoid
+	*, /
+	+, -
+	<=, <, =
+	not
+	<-
+Todas as operações binárias são associativas à esquerda, com exceção da atribuição (<-), que é associativa à 
+direita, e as três operações de comparação (<=, <, =), que não são associativas.
+
+
+
+
+
+
+
+
+
