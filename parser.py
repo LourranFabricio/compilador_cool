@@ -255,6 +255,6 @@ if __name__ == "__main__":
     
     # Imprime a Árvore Sintática (AST) gerada
     if ast is not None:
-        print("\nÁrvore Sintática (AST) gerada com sucesso:\n")
+        print("\nÁrvore Sintática (AST):\n")
         import pprint
         pprint.pprint(ast)
