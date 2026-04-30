@@ -1,0 +1,3446 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    SELF_TYPE
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> class_list
+Rule 2     class_list -> class_list class SEMICOLON
+Rule 3     class_list -> class SEMICOLON
+Rule 4     class -> CLASS TYPEID LBRACE feature_list RBRACE
+Rule 5     class -> CLASS TYPEID INHERITS TYPEID LBRACE feature_list RBRACE
+Rule 6     feature_list -> feature_list feature SEMICOLON
+Rule 7     feature_list -> empty
+Rule 8     feature -> OBJECTID LPAREN param_list RPAREN COLON TYPEID LBRACE expr RBRACE
+Rule 9     feature -> OBJECTID COLON TYPEID ASSIGN expr
+Rule 10    feature -> OBJECTID COLON TYPEID
+Rule 11    param_list -> param_list COMMA formal
+Rule 12    param_list -> formal
+Rule 13    param_list -> empty
+Rule 14    formal -> OBJECTID COLON TYPEID
+Rule 15    expr -> OBJECTID ASSIGN expr
+Rule 16    expr -> expr DOT OBJECTID LPAREN arg_list RPAREN
+Rule 17    expr -> expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+Rule 18    expr -> OBJECTID LPAREN arg_list RPAREN
+Rule 19    expr -> IF expr THEN expr ELSE expr FI
+Rule 20    expr -> WHILE expr LOOP expr POOL
+Rule 21    expr -> LBRACE expr_list RBRACE
+Rule 22    expr_list -> expr_list expr SEMICOLON
+Rule 23    expr_list -> expr SEMICOLON
+Rule 24    expr -> LET let_bindings IN expr
+Rule 25    let_bindings -> let_bindings COMMA let_binding
+Rule 26    let_bindings -> let_binding
+Rule 27    let_binding -> OBJECTID COLON TYPEID ASSIGN expr
+Rule 28    let_binding -> OBJECTID COLON TYPEID
+Rule 29    expr -> CASE expr OF case_list ESAC
+Rule 30    case_list -> case_list case_branch
+Rule 31    case_list -> case_branch
+Rule 32    case_branch -> OBJECTID COLON TYPEID DARROW expr SEMICOLON
+Rule 33    expr -> NEW TYPEID
+Rule 34    expr -> ISVOID expr
+Rule 35    expr -> expr PLUS expr
+Rule 36    expr -> expr MINUS expr
+Rule 37    expr -> expr MULT expr
+Rule 38    expr -> expr DIV expr
+Rule 39    expr -> expr LT expr
+Rule 40    expr -> expr LE expr
+Rule 41    expr -> expr EQ expr
+Rule 42    expr -> NOT expr
+Rule 43    expr -> TILDE expr
+Rule 44    expr -> LPAREN expr RPAREN
+Rule 45    expr -> OBJECTID
+Rule 46    expr -> INT_CONST
+Rule 47    expr -> STR_CONST
+Rule 48    expr -> BOOL_CONST
+Rule 49    expr -> SELF
+Rule 50    arg_list -> arg_list COMMA expr
+Rule 51    arg_list -> expr
+Rule 52    arg_list -> empty
+Rule 53    empty -> <empty>
+
+Terminals, with rules where they appear
+
+ASSIGN               : 9 15 27
+AT                   : 17
+BOOL_CONST           : 48
+CASE                 : 29
+CLASS                : 4 5
+COLON                : 8 9 10 14 27 28 32
+COMMA                : 11 25 50
+DARROW               : 32
+DIV                  : 38
+DOT                  : 16 17
+ELSE                 : 19
+EQ                   : 41
+ESAC                 : 29
+FI                   : 19
+IF                   : 19
+IN                   : 24
+INHERITS             : 5
+INT_CONST            : 46
+ISVOID               : 34
+LBRACE               : 4 5 8 21
+LE                   : 40
+LET                  : 24
+LOOP                 : 20
+LPAREN               : 8 16 17 18 44
+LT                   : 39
+MINUS                : 36
+MULT                 : 37
+NEW                  : 33
+NOT                  : 42
+OBJECTID             : 8 9 10 14 15 16 17 18 27 28 32 45
+OF                   : 29
+PLUS                 : 35
+POOL                 : 20
+RBRACE               : 4 5 8 21
+RPAREN               : 8 16 17 18 44
+SELF                 : 49
+SELF_TYPE            : 
+SEMICOLON            : 2 3 6 22 23 32
+STR_CONST            : 47
+THEN                 : 19
+TILDE                : 43
+TYPEID               : 4 5 5 8 9 10 14 17 27 28 32 33
+WHILE                : 20
+error                : 
+
+Nonterminals, with rules where they appear
+
+arg_list             : 16 17 18 50
+case_branch          : 30 31
+case_list            : 29 30
+class                : 2 3
+class_list           : 1 2
+empty                : 7 13 52
+expr                 : 8 9 15 16 17 19 19 19 20 20 22 23 24 27 29 32 34 35 35 36 36 37 37 38 38 39 39 40 40 41 41 42 43 44 50 51
+expr_list            : 21 22
+feature              : 6
+feature_list         : 4 5 6
+formal               : 11 12
+let_binding          : 25 26
+let_bindings         : 24 25
+param_list           : 8 11
+program              : 0
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . class_list
+    (2) class_list -> . class_list class SEMICOLON
+    (3) class_list -> . class SEMICOLON
+    (4) class -> . CLASS TYPEID LBRACE feature_list RBRACE
+    (5) class -> . CLASS TYPEID INHERITS TYPEID LBRACE feature_list RBRACE
+
+    CLASS           shift and go to state 4
+
+    program                        shift and go to state 1
+    class_list                     shift and go to state 2
+    class                          shift and go to state 3
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> class_list .
+    (2) class_list -> class_list . class SEMICOLON
+    (4) class -> . CLASS TYPEID LBRACE feature_list RBRACE
+    (5) class -> . CLASS TYPEID INHERITS TYPEID LBRACE feature_list RBRACE
+
+    $end            reduce using rule 1 (program -> class_list .)
+    CLASS           shift and go to state 4
+
+    class                          shift and go to state 5
+
+state 3
+
+    (3) class_list -> class . SEMICOLON
+
+    SEMICOLON       shift and go to state 6
+
+
+state 4
+
+    (4) class -> CLASS . TYPEID LBRACE feature_list RBRACE
+    (5) class -> CLASS . TYPEID INHERITS TYPEID LBRACE feature_list RBRACE
+
+    TYPEID          shift and go to state 7
+
+
+state 5
+
+    (2) class_list -> class_list class . SEMICOLON
+
+    SEMICOLON       shift and go to state 8
+
+
+state 6
+
+    (3) class_list -> class SEMICOLON .
+
+    CLASS           reduce using rule 3 (class_list -> class SEMICOLON .)
+    $end            reduce using rule 3 (class_list -> class SEMICOLON .)
+
+
+state 7
+
+    (4) class -> CLASS TYPEID . LBRACE feature_list RBRACE
+    (5) class -> CLASS TYPEID . INHERITS TYPEID LBRACE feature_list RBRACE
+
+    LBRACE          shift and go to state 9
+    INHERITS        shift and go to state 10
+
+
+state 8
+
+    (2) class_list -> class_list class SEMICOLON .
+
+    CLASS           reduce using rule 2 (class_list -> class_list class SEMICOLON .)
+    $end            reduce using rule 2 (class_list -> class_list class SEMICOLON .)
+
+
+state 9
+
+    (4) class -> CLASS TYPEID LBRACE . feature_list RBRACE
+    (6) feature_list -> . feature_list feature SEMICOLON
+    (7) feature_list -> . empty
+    (53) empty -> .
+
+    RBRACE          reduce using rule 53 (empty -> .)
+    OBJECTID        reduce using rule 53 (empty -> .)
+
+    feature_list                   shift and go to state 11
+    empty                          shift and go to state 12
+
+state 10
+
+    (5) class -> CLASS TYPEID INHERITS . TYPEID LBRACE feature_list RBRACE
+
+    TYPEID          shift and go to state 13
+
+
+state 11
+
+    (4) class -> CLASS TYPEID LBRACE feature_list . RBRACE
+    (6) feature_list -> feature_list . feature SEMICOLON
+    (8) feature -> . OBJECTID LPAREN param_list RPAREN COLON TYPEID LBRACE expr RBRACE
+    (9) feature -> . OBJECTID COLON TYPEID ASSIGN expr
+    (10) feature -> . OBJECTID COLON TYPEID
+
+    RBRACE          shift and go to state 14
+    OBJECTID        shift and go to state 16
+
+    feature                        shift and go to state 15
+
+state 12
+
+    (7) feature_list -> empty .
+
+    RBRACE          reduce using rule 7 (feature_list -> empty .)
+    OBJECTID        reduce using rule 7 (feature_list -> empty .)
+
+
+state 13
+
+    (5) class -> CLASS TYPEID INHERITS TYPEID . LBRACE feature_list RBRACE
+
+    LBRACE          shift and go to state 17
+
+
+state 14
+
+    (4) class -> CLASS TYPEID LBRACE feature_list RBRACE .
+
+    SEMICOLON       reduce using rule 4 (class -> CLASS TYPEID LBRACE feature_list RBRACE .)
+
+
+state 15
+
+    (6) feature_list -> feature_list feature . SEMICOLON
+
+    SEMICOLON       shift and go to state 18
+
+
+state 16
+
+    (8) feature -> OBJECTID . LPAREN param_list RPAREN COLON TYPEID LBRACE expr RBRACE
+    (9) feature -> OBJECTID . COLON TYPEID ASSIGN expr
+    (10) feature -> OBJECTID . COLON TYPEID
+
+    LPAREN          shift and go to state 19
+    COLON           shift and go to state 20
+
+
+state 17
+
+    (5) class -> CLASS TYPEID INHERITS TYPEID LBRACE . feature_list RBRACE
+    (6) feature_list -> . feature_list feature SEMICOLON
+    (7) feature_list -> . empty
+    (53) empty -> .
+
+    RBRACE          reduce using rule 53 (empty -> .)
+    OBJECTID        reduce using rule 53 (empty -> .)
+
+    feature_list                   shift and go to state 21
+    empty                          shift and go to state 12
+
+state 18
+
+    (6) feature_list -> feature_list feature SEMICOLON .
+
+    RBRACE          reduce using rule 6 (feature_list -> feature_list feature SEMICOLON .)
+    OBJECTID        reduce using rule 6 (feature_list -> feature_list feature SEMICOLON .)
+
+
+state 19
+
+    (8) feature -> OBJECTID LPAREN . param_list RPAREN COLON TYPEID LBRACE expr RBRACE
+    (11) param_list -> . param_list COMMA formal
+    (12) param_list -> . formal
+    (13) param_list -> . empty
+    (14) formal -> . OBJECTID COLON TYPEID
+    (53) empty -> .
+
+    OBJECTID        shift and go to state 22
+    RPAREN          reduce using rule 53 (empty -> .)
+    COMMA           reduce using rule 53 (empty -> .)
+
+    param_list                     shift and go to state 23
+    formal                         shift and go to state 24
+    empty                          shift and go to state 25
+
+state 20
+
+    (9) feature -> OBJECTID COLON . TYPEID ASSIGN expr
+    (10) feature -> OBJECTID COLON . TYPEID
+
+    TYPEID          shift and go to state 26
+
+
+state 21
+
+    (5) class -> CLASS TYPEID INHERITS TYPEID LBRACE feature_list . RBRACE
+    (6) feature_list -> feature_list . feature SEMICOLON
+    (8) feature -> . OBJECTID LPAREN param_list RPAREN COLON TYPEID LBRACE expr RBRACE
+    (9) feature -> . OBJECTID COLON TYPEID ASSIGN expr
+    (10) feature -> . OBJECTID COLON TYPEID
+
+    RBRACE          shift and go to state 27
+    OBJECTID        shift and go to state 16
+
+    feature                        shift and go to state 15
+
+state 22
+
+    (14) formal -> OBJECTID . COLON TYPEID
+
+    COLON           shift and go to state 28
+
+
+state 23
+
+    (8) feature -> OBJECTID LPAREN param_list . RPAREN COLON TYPEID LBRACE expr RBRACE
+    (11) param_list -> param_list . COMMA formal
+
+    RPAREN          shift and go to state 29
+    COMMA           shift and go to state 30
+
+
+state 24
+
+    (12) param_list -> formal .
+
+    RPAREN          reduce using rule 12 (param_list -> formal .)
+    COMMA           reduce using rule 12 (param_list -> formal .)
+
+
+state 25
+
+    (13) param_list -> empty .
+
+    RPAREN          reduce using rule 13 (param_list -> empty .)
+    COMMA           reduce using rule 13 (param_list -> empty .)
+
+
+state 26
+
+    (9) feature -> OBJECTID COLON TYPEID . ASSIGN expr
+    (10) feature -> OBJECTID COLON TYPEID .
+
+    ASSIGN          shift and go to state 31
+    SEMICOLON       reduce using rule 10 (feature -> OBJECTID COLON TYPEID .)
+
+
+state 27
+
+    (5) class -> CLASS TYPEID INHERITS TYPEID LBRACE feature_list RBRACE .
+
+    SEMICOLON       reduce using rule 5 (class -> CLASS TYPEID INHERITS TYPEID LBRACE feature_list RBRACE .)
+
+
+state 28
+
+    (14) formal -> OBJECTID COLON . TYPEID
+
+    TYPEID          shift and go to state 32
+
+
+state 29
+
+    (8) feature -> OBJECTID LPAREN param_list RPAREN . COLON TYPEID LBRACE expr RBRACE
+
+    COLON           shift and go to state 33
+
+
+state 30
+
+    (11) param_list -> param_list COMMA . formal
+    (14) formal -> . OBJECTID COLON TYPEID
+
+    OBJECTID        shift and go to state 22
+
+    formal                         shift and go to state 34
+
+state 31
+
+    (9) feature -> OBJECTID COLON TYPEID ASSIGN . expr
+    (15) expr -> . OBJECTID ASSIGN expr
+    (16) expr -> . expr DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> . expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (18) expr -> . OBJECTID LPAREN arg_list RPAREN
+    (19) expr -> . IF expr THEN expr ELSE expr FI
+    (20) expr -> . WHILE expr LOOP expr POOL
+    (21) expr -> . LBRACE expr_list RBRACE
+    (24) expr -> . LET let_bindings IN expr
+    (29) expr -> . CASE expr OF case_list ESAC
+    (33) expr -> . NEW TYPEID
+    (34) expr -> . ISVOID expr
+    (35) expr -> . expr PLUS expr
+    (36) expr -> . expr MINUS expr
+    (37) expr -> . expr MULT expr
+    (38) expr -> . expr DIV expr
+    (39) expr -> . expr LT expr
+    (40) expr -> . expr LE expr
+    (41) expr -> . expr EQ expr
+    (42) expr -> . NOT expr
+    (43) expr -> . TILDE expr
+    (44) expr -> . LPAREN expr RPAREN
+    (45) expr -> . OBJECTID
+    (46) expr -> . INT_CONST
+    (47) expr -> . STR_CONST
+    (48) expr -> . BOOL_CONST
+    (49) expr -> . SELF
+
+    OBJECTID        shift and go to state 35
+    IF              shift and go to state 38
+    WHILE           shift and go to state 39
+    LBRACE          shift and go to state 40
+    LET             shift and go to state 41
+    CASE            shift and go to state 42
+    NEW             shift and go to state 43
+    ISVOID          shift and go to state 44
+    NOT             shift and go to state 45
+    TILDE           shift and go to state 46
+    LPAREN          shift and go to state 37
+    INT_CONST       shift and go to state 47
+    STR_CONST       shift and go to state 48
+    BOOL_CONST      shift and go to state 49
+    SELF            shift and go to state 50
+
+    expr                           shift and go to state 36
+
+state 32
+
+    (14) formal -> OBJECTID COLON TYPEID .
+
+    RPAREN          reduce using rule 14 (formal -> OBJECTID COLON TYPEID .)
+    COMMA           reduce using rule 14 (formal -> OBJECTID COLON TYPEID .)
+
+
+state 33
+
+    (8) feature -> OBJECTID LPAREN param_list RPAREN COLON . TYPEID LBRACE expr RBRACE
+
+    TYPEID          shift and go to state 51
+
+
+state 34
+
+    (11) param_list -> param_list COMMA formal .
+
+    RPAREN          reduce using rule 11 (param_list -> param_list COMMA formal .)
+    COMMA           reduce using rule 11 (param_list -> param_list COMMA formal .)
+
+
+state 35
+
+    (15) expr -> OBJECTID . ASSIGN expr
+    (18) expr -> OBJECTID . LPAREN arg_list RPAREN
+    (45) expr -> OBJECTID .
+
+    ASSIGN          shift and go to state 52
+    LPAREN          shift and go to state 53
+    DOT             reduce using rule 45 (expr -> OBJECTID .)
+    AT              reduce using rule 45 (expr -> OBJECTID .)
+    PLUS            reduce using rule 45 (expr -> OBJECTID .)
+    MINUS           reduce using rule 45 (expr -> OBJECTID .)
+    MULT            reduce using rule 45 (expr -> OBJECTID .)
+    DIV             reduce using rule 45 (expr -> OBJECTID .)
+    LT              reduce using rule 45 (expr -> OBJECTID .)
+    LE              reduce using rule 45 (expr -> OBJECTID .)
+    EQ              reduce using rule 45 (expr -> OBJECTID .)
+    SEMICOLON       reduce using rule 45 (expr -> OBJECTID .)
+    RPAREN          reduce using rule 45 (expr -> OBJECTID .)
+    THEN            reduce using rule 45 (expr -> OBJECTID .)
+    LOOP            reduce using rule 45 (expr -> OBJECTID .)
+    OF              reduce using rule 45 (expr -> OBJECTID .)
+    COMMA           reduce using rule 45 (expr -> OBJECTID .)
+    RBRACE          reduce using rule 45 (expr -> OBJECTID .)
+    ELSE            reduce using rule 45 (expr -> OBJECTID .)
+    POOL            reduce using rule 45 (expr -> OBJECTID .)
+    FI              reduce using rule 45 (expr -> OBJECTID .)
+    IN              reduce using rule 45 (expr -> OBJECTID .)
+
+
+state 36
+
+    (9) feature -> OBJECTID COLON TYPEID ASSIGN expr .
+    (16) expr -> expr . DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> expr . AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (35) expr -> expr . PLUS expr
+    (36) expr -> expr . MINUS expr
+    (37) expr -> expr . MULT expr
+    (38) expr -> expr . DIV expr
+    (39) expr -> expr . LT expr
+    (40) expr -> expr . LE expr
+    (41) expr -> expr . EQ expr
+
+    SEMICOLON       reduce using rule 9 (feature -> OBJECTID COLON TYPEID ASSIGN expr .)
+    DOT             shift and go to state 54
+    AT              shift and go to state 55
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    MULT            shift and go to state 58
+    DIV             shift and go to state 59
+    LT              shift and go to state 60
+    LE              shift and go to state 61
+    EQ              shift and go to state 62
+
+
+state 37
+
+    (44) expr -> LPAREN . expr RPAREN
+    (15) expr -> . OBJECTID ASSIGN expr
+    (16) expr -> . expr DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> . expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (18) expr -> . OBJECTID LPAREN arg_list RPAREN
+    (19) expr -> . IF expr THEN expr ELSE expr FI
+    (20) expr -> . WHILE expr LOOP expr POOL
+    (21) expr -> . LBRACE expr_list RBRACE
+    (24) expr -> . LET let_bindings IN expr
+    (29) expr -> . CASE expr OF case_list ESAC
+    (33) expr -> . NEW TYPEID
+    (34) expr -> . ISVOID expr
+    (35) expr -> . expr PLUS expr
+    (36) expr -> . expr MINUS expr
+    (37) expr -> . expr MULT expr
+    (38) expr -> . expr DIV expr
+    (39) expr -> . expr LT expr
+    (40) expr -> . expr LE expr
+    (41) expr -> . expr EQ expr
+    (42) expr -> . NOT expr
+    (43) expr -> . TILDE expr
+    (44) expr -> . LPAREN expr RPAREN
+    (45) expr -> . OBJECTID
+    (46) expr -> . INT_CONST
+    (47) expr -> . STR_CONST
+    (48) expr -> . BOOL_CONST
+    (49) expr -> . SELF
+
+    OBJECTID        shift and go to state 35
+    IF              shift and go to state 38
+    WHILE           shift and go to state 39
+    LBRACE          shift and go to state 40
+    LET             shift and go to state 41
+    CASE            shift and go to state 42
+    NEW             shift and go to state 43
+    ISVOID          shift and go to state 44
+    NOT             shift and go to state 45
+    TILDE           shift and go to state 46
+    LPAREN          shift and go to state 37
+    INT_CONST       shift and go to state 47
+    STR_CONST       shift and go to state 48
+    BOOL_CONST      shift and go to state 49
+    SELF            shift and go to state 50
+
+    expr                           shift and go to state 63
+
+state 38
+
+    (19) expr -> IF . expr THEN expr ELSE expr FI
+    (15) expr -> . OBJECTID ASSIGN expr
+    (16) expr -> . expr DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> . expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (18) expr -> . OBJECTID LPAREN arg_list RPAREN
+    (19) expr -> . IF expr THEN expr ELSE expr FI
+    (20) expr -> . WHILE expr LOOP expr POOL
+    (21) expr -> . LBRACE expr_list RBRACE
+    (24) expr -> . LET let_bindings IN expr
+    (29) expr -> . CASE expr OF case_list ESAC
+    (33) expr -> . NEW TYPEID
+    (34) expr -> . ISVOID expr
+    (35) expr -> . expr PLUS expr
+    (36) expr -> . expr MINUS expr
+    (37) expr -> . expr MULT expr
+    (38) expr -> . expr DIV expr
+    (39) expr -> . expr LT expr
+    (40) expr -> . expr LE expr
+    (41) expr -> . expr EQ expr
+    (42) expr -> . NOT expr
+    (43) expr -> . TILDE expr
+    (44) expr -> . LPAREN expr RPAREN
+    (45) expr -> . OBJECTID
+    (46) expr -> . INT_CONST
+    (47) expr -> . STR_CONST
+    (48) expr -> . BOOL_CONST
+    (49) expr -> . SELF
+
+    OBJECTID        shift and go to state 35
+    IF              shift and go to state 38
+    WHILE           shift and go to state 39
+    LBRACE          shift and go to state 40
+    LET             shift and go to state 41
+    CASE            shift and go to state 42
+    NEW             shift and go to state 43
+    ISVOID          shift and go to state 44
+    NOT             shift and go to state 45
+    TILDE           shift and go to state 46
+    LPAREN          shift and go to state 37
+    INT_CONST       shift and go to state 47
+    STR_CONST       shift and go to state 48
+    BOOL_CONST      shift and go to state 49
+    SELF            shift and go to state 50
+
+    expr                           shift and go to state 64
+
+state 39
+
+    (20) expr -> WHILE . expr LOOP expr POOL
+    (15) expr -> . OBJECTID ASSIGN expr
+    (16) expr -> . expr DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> . expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (18) expr -> . OBJECTID LPAREN arg_list RPAREN
+    (19) expr -> . IF expr THEN expr ELSE expr FI
+    (20) expr -> . WHILE expr LOOP expr POOL
+    (21) expr -> . LBRACE expr_list RBRACE
+    (24) expr -> . LET let_bindings IN expr
+    (29) expr -> . CASE expr OF case_list ESAC
+    (33) expr -> . NEW TYPEID
+    (34) expr -> . ISVOID expr
+    (35) expr -> . expr PLUS expr
+    (36) expr -> . expr MINUS expr
+    (37) expr -> . expr MULT expr
+    (38) expr -> . expr DIV expr
+    (39) expr -> . expr LT expr
+    (40) expr -> . expr LE expr
+    (41) expr -> . expr EQ expr
+    (42) expr -> . NOT expr
+    (43) expr -> . TILDE expr
+    (44) expr -> . LPAREN expr RPAREN
+    (45) expr -> . OBJECTID
+    (46) expr -> . INT_CONST
+    (47) expr -> . STR_CONST
+    (48) expr -> . BOOL_CONST
+    (49) expr -> . SELF
+
+    OBJECTID        shift and go to state 35
+    IF              shift and go to state 38
+    WHILE           shift and go to state 39
+    LBRACE          shift and go to state 40
+    LET             shift and go to state 41
+    CASE            shift and go to state 42
+    NEW             shift and go to state 43
+    ISVOID          shift and go to state 44
+    NOT             shift and go to state 45
+    TILDE           shift and go to state 46
+    LPAREN          shift and go to state 37
+    INT_CONST       shift and go to state 47
+    STR_CONST       shift and go to state 48
+    BOOL_CONST      shift and go to state 49
+    SELF            shift and go to state 50
+
+    expr                           shift and go to state 65
+
+state 40
+
+    (21) expr -> LBRACE . expr_list RBRACE
+    (22) expr_list -> . expr_list expr SEMICOLON
+    (23) expr_list -> . expr SEMICOLON
+    (15) expr -> . OBJECTID ASSIGN expr
+    (16) expr -> . expr DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> . expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (18) expr -> . OBJECTID LPAREN arg_list RPAREN
+    (19) expr -> . IF expr THEN expr ELSE expr FI
+    (20) expr -> . WHILE expr LOOP expr POOL
+    (21) expr -> . LBRACE expr_list RBRACE
+    (24) expr -> . LET let_bindings IN expr
+    (29) expr -> . CASE expr OF case_list ESAC
+    (33) expr -> . NEW TYPEID
+    (34) expr -> . ISVOID expr
+    (35) expr -> . expr PLUS expr
+    (36) expr -> . expr MINUS expr
+    (37) expr -> . expr MULT expr
+    (38) expr -> . expr DIV expr
+    (39) expr -> . expr LT expr
+    (40) expr -> . expr LE expr
+    (41) expr -> . expr EQ expr
+    (42) expr -> . NOT expr
+    (43) expr -> . TILDE expr
+    (44) expr -> . LPAREN expr RPAREN
+    (45) expr -> . OBJECTID
+    (46) expr -> . INT_CONST
+    (47) expr -> . STR_CONST
+    (48) expr -> . BOOL_CONST
+    (49) expr -> . SELF
+
+    OBJECTID        shift and go to state 35
+    IF              shift and go to state 38
+    WHILE           shift and go to state 39
+    LBRACE          shift and go to state 40
+    LET             shift and go to state 41
+    CASE            shift and go to state 42
+    NEW             shift and go to state 43
+    ISVOID          shift and go to state 44
+    NOT             shift and go to state 45
+    TILDE           shift and go to state 46
+    LPAREN          shift and go to state 37
+    INT_CONST       shift and go to state 47
+    STR_CONST       shift and go to state 48
+    BOOL_CONST      shift and go to state 49
+    SELF            shift and go to state 50
+
+    expr_list                      shift and go to state 66
+    expr                           shift and go to state 67
+
+state 41
+
+    (24) expr -> LET . let_bindings IN expr
+    (25) let_bindings -> . let_bindings COMMA let_binding
+    (26) let_bindings -> . let_binding
+    (27) let_binding -> . OBJECTID COLON TYPEID ASSIGN expr
+    (28) let_binding -> . OBJECTID COLON TYPEID
+
+    OBJECTID        shift and go to state 70
+
+    let_bindings                   shift and go to state 68
+    let_binding                    shift and go to state 69
+
+state 42
+
+    (29) expr -> CASE . expr OF case_list ESAC
+    (15) expr -> . OBJECTID ASSIGN expr
+    (16) expr -> . expr DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> . expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (18) expr -> . OBJECTID LPAREN arg_list RPAREN
+    (19) expr -> . IF expr THEN expr ELSE expr FI
+    (20) expr -> . WHILE expr LOOP expr POOL
+    (21) expr -> . LBRACE expr_list RBRACE
+    (24) expr -> . LET let_bindings IN expr
+    (29) expr -> . CASE expr OF case_list ESAC
+    (33) expr -> . NEW TYPEID
+    (34) expr -> . ISVOID expr
+    (35) expr -> . expr PLUS expr
+    (36) expr -> . expr MINUS expr
+    (37) expr -> . expr MULT expr
+    (38) expr -> . expr DIV expr
+    (39) expr -> . expr LT expr
+    (40) expr -> . expr LE expr
+    (41) expr -> . expr EQ expr
+    (42) expr -> . NOT expr
+    (43) expr -> . TILDE expr
+    (44) expr -> . LPAREN expr RPAREN
+    (45) expr -> . OBJECTID
+    (46) expr -> . INT_CONST
+    (47) expr -> . STR_CONST
+    (48) expr -> . BOOL_CONST
+    (49) expr -> . SELF
+
+    OBJECTID        shift and go to state 35
+    IF              shift and go to state 38
+    WHILE           shift and go to state 39
+    LBRACE          shift and go to state 40
+    LET             shift and go to state 41
+    CASE            shift and go to state 42
+    NEW             shift and go to state 43
+    ISVOID          shift and go to state 44
+    NOT             shift and go to state 45
+    TILDE           shift and go to state 46
+    LPAREN          shift and go to state 37
+    INT_CONST       shift and go to state 47
+    STR_CONST       shift and go to state 48
+    BOOL_CONST      shift and go to state 49
+    SELF            shift and go to state 50
+
+    expr                           shift and go to state 71
+
+state 43
+
+    (33) expr -> NEW . TYPEID
+
+    TYPEID          shift and go to state 72
+
+
+state 44
+
+    (34) expr -> ISVOID . expr
+    (15) expr -> . OBJECTID ASSIGN expr
+    (16) expr -> . expr DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> . expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (18) expr -> . OBJECTID LPAREN arg_list RPAREN
+    (19) expr -> . IF expr THEN expr ELSE expr FI
+    (20) expr -> . WHILE expr LOOP expr POOL
+    (21) expr -> . LBRACE expr_list RBRACE
+    (24) expr -> . LET let_bindings IN expr
+    (29) expr -> . CASE expr OF case_list ESAC
+    (33) expr -> . NEW TYPEID
+    (34) expr -> . ISVOID expr
+    (35) expr -> . expr PLUS expr
+    (36) expr -> . expr MINUS expr
+    (37) expr -> . expr MULT expr
+    (38) expr -> . expr DIV expr
+    (39) expr -> . expr LT expr
+    (40) expr -> . expr LE expr
+    (41) expr -> . expr EQ expr
+    (42) expr -> . NOT expr
+    (43) expr -> . TILDE expr
+    (44) expr -> . LPAREN expr RPAREN
+    (45) expr -> . OBJECTID
+    (46) expr -> . INT_CONST
+    (47) expr -> . STR_CONST
+    (48) expr -> . BOOL_CONST
+    (49) expr -> . SELF
+
+    OBJECTID        shift and go to state 35
+    IF              shift and go to state 38
+    WHILE           shift and go to state 39
+    LBRACE          shift and go to state 40
+    LET             shift and go to state 41
+    CASE            shift and go to state 42
+    NEW             shift and go to state 43
+    ISVOID          shift and go to state 44
+    NOT             shift and go to state 45
+    TILDE           shift and go to state 46
+    LPAREN          shift and go to state 37
+    INT_CONST       shift and go to state 47
+    STR_CONST       shift and go to state 48
+    BOOL_CONST      shift and go to state 49
+    SELF            shift and go to state 50
+
+    expr                           shift and go to state 73
+
+state 45
+
+    (42) expr -> NOT . expr
+    (15) expr -> . OBJECTID ASSIGN expr
+    (16) expr -> . expr DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> . expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (18) expr -> . OBJECTID LPAREN arg_list RPAREN
+    (19) expr -> . IF expr THEN expr ELSE expr FI
+    (20) expr -> . WHILE expr LOOP expr POOL
+    (21) expr -> . LBRACE expr_list RBRACE
+    (24) expr -> . LET let_bindings IN expr
+    (29) expr -> . CASE expr OF case_list ESAC
+    (33) expr -> . NEW TYPEID
+    (34) expr -> . ISVOID expr
+    (35) expr -> . expr PLUS expr
+    (36) expr -> . expr MINUS expr
+    (37) expr -> . expr MULT expr
+    (38) expr -> . expr DIV expr
+    (39) expr -> . expr LT expr
+    (40) expr -> . expr LE expr
+    (41) expr -> . expr EQ expr
+    (42) expr -> . NOT expr
+    (43) expr -> . TILDE expr
+    (44) expr -> . LPAREN expr RPAREN
+    (45) expr -> . OBJECTID
+    (46) expr -> . INT_CONST
+    (47) expr -> . STR_CONST
+    (48) expr -> . BOOL_CONST
+    (49) expr -> . SELF
+
+    OBJECTID        shift and go to state 35
+    IF              shift and go to state 38
+    WHILE           shift and go to state 39
+    LBRACE          shift and go to state 40
+    LET             shift and go to state 41
+    CASE            shift and go to state 42
+    NEW             shift and go to state 43
+    ISVOID          shift and go to state 44
+    NOT             shift and go to state 45
+    TILDE           shift and go to state 46
+    LPAREN          shift and go to state 37
+    INT_CONST       shift and go to state 47
+    STR_CONST       shift and go to state 48
+    BOOL_CONST      shift and go to state 49
+    SELF            shift and go to state 50
+
+    expr                           shift and go to state 74
+
+state 46
+
+    (43) expr -> TILDE . expr
+    (15) expr -> . OBJECTID ASSIGN expr
+    (16) expr -> . expr DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> . expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (18) expr -> . OBJECTID LPAREN arg_list RPAREN
+    (19) expr -> . IF expr THEN expr ELSE expr FI
+    (20) expr -> . WHILE expr LOOP expr POOL
+    (21) expr -> . LBRACE expr_list RBRACE
+    (24) expr -> . LET let_bindings IN expr
+    (29) expr -> . CASE expr OF case_list ESAC
+    (33) expr -> . NEW TYPEID
+    (34) expr -> . ISVOID expr
+    (35) expr -> . expr PLUS expr
+    (36) expr -> . expr MINUS expr
+    (37) expr -> . expr MULT expr
+    (38) expr -> . expr DIV expr
+    (39) expr -> . expr LT expr
+    (40) expr -> . expr LE expr
+    (41) expr -> . expr EQ expr
+    (42) expr -> . NOT expr
+    (43) expr -> . TILDE expr
+    (44) expr -> . LPAREN expr RPAREN
+    (45) expr -> . OBJECTID
+    (46) expr -> . INT_CONST
+    (47) expr -> . STR_CONST
+    (48) expr -> . BOOL_CONST
+    (49) expr -> . SELF
+
+    OBJECTID        shift and go to state 35
+    IF              shift and go to state 38
+    WHILE           shift and go to state 39
+    LBRACE          shift and go to state 40
+    LET             shift and go to state 41
+    CASE            shift and go to state 42
+    NEW             shift and go to state 43
+    ISVOID          shift and go to state 44
+    NOT             shift and go to state 45
+    TILDE           shift and go to state 46
+    LPAREN          shift and go to state 37
+    INT_CONST       shift and go to state 47
+    STR_CONST       shift and go to state 48
+    BOOL_CONST      shift and go to state 49
+    SELF            shift and go to state 50
+
+    expr                           shift and go to state 75
+
+state 47
+
+    (46) expr -> INT_CONST .
+
+    DOT             reduce using rule 46 (expr -> INT_CONST .)
+    AT              reduce using rule 46 (expr -> INT_CONST .)
+    PLUS            reduce using rule 46 (expr -> INT_CONST .)
+    MINUS           reduce using rule 46 (expr -> INT_CONST .)
+    MULT            reduce using rule 46 (expr -> INT_CONST .)
+    DIV             reduce using rule 46 (expr -> INT_CONST .)
+    LT              reduce using rule 46 (expr -> INT_CONST .)
+    LE              reduce using rule 46 (expr -> INT_CONST .)
+    EQ              reduce using rule 46 (expr -> INT_CONST .)
+    SEMICOLON       reduce using rule 46 (expr -> INT_CONST .)
+    RPAREN          reduce using rule 46 (expr -> INT_CONST .)
+    THEN            reduce using rule 46 (expr -> INT_CONST .)
+    LOOP            reduce using rule 46 (expr -> INT_CONST .)
+    OF              reduce using rule 46 (expr -> INT_CONST .)
+    COMMA           reduce using rule 46 (expr -> INT_CONST .)
+    RBRACE          reduce using rule 46 (expr -> INT_CONST .)
+    ELSE            reduce using rule 46 (expr -> INT_CONST .)
+    POOL            reduce using rule 46 (expr -> INT_CONST .)
+    FI              reduce using rule 46 (expr -> INT_CONST .)
+    IN              reduce using rule 46 (expr -> INT_CONST .)
+
+
+state 48
+
+    (47) expr -> STR_CONST .
+
+    DOT             reduce using rule 47 (expr -> STR_CONST .)
+    AT              reduce using rule 47 (expr -> STR_CONST .)
+    PLUS            reduce using rule 47 (expr -> STR_CONST .)
+    MINUS           reduce using rule 47 (expr -> STR_CONST .)
+    MULT            reduce using rule 47 (expr -> STR_CONST .)
+    DIV             reduce using rule 47 (expr -> STR_CONST .)
+    LT              reduce using rule 47 (expr -> STR_CONST .)
+    LE              reduce using rule 47 (expr -> STR_CONST .)
+    EQ              reduce using rule 47 (expr -> STR_CONST .)
+    SEMICOLON       reduce using rule 47 (expr -> STR_CONST .)
+    RPAREN          reduce using rule 47 (expr -> STR_CONST .)
+    THEN            reduce using rule 47 (expr -> STR_CONST .)
+    LOOP            reduce using rule 47 (expr -> STR_CONST .)
+    OF              reduce using rule 47 (expr -> STR_CONST .)
+    COMMA           reduce using rule 47 (expr -> STR_CONST .)
+    RBRACE          reduce using rule 47 (expr -> STR_CONST .)
+    ELSE            reduce using rule 47 (expr -> STR_CONST .)
+    POOL            reduce using rule 47 (expr -> STR_CONST .)
+    FI              reduce using rule 47 (expr -> STR_CONST .)
+    IN              reduce using rule 47 (expr -> STR_CONST .)
+
+
+state 49
+
+    (48) expr -> BOOL_CONST .
+
+    DOT             reduce using rule 48 (expr -> BOOL_CONST .)
+    AT              reduce using rule 48 (expr -> BOOL_CONST .)
+    PLUS            reduce using rule 48 (expr -> BOOL_CONST .)
+    MINUS           reduce using rule 48 (expr -> BOOL_CONST .)
+    MULT            reduce using rule 48 (expr -> BOOL_CONST .)
+    DIV             reduce using rule 48 (expr -> BOOL_CONST .)
+    LT              reduce using rule 48 (expr -> BOOL_CONST .)
+    LE              reduce using rule 48 (expr -> BOOL_CONST .)
+    EQ              reduce using rule 48 (expr -> BOOL_CONST .)
+    SEMICOLON       reduce using rule 48 (expr -> BOOL_CONST .)
+    RPAREN          reduce using rule 48 (expr -> BOOL_CONST .)
+    THEN            reduce using rule 48 (expr -> BOOL_CONST .)
+    LOOP            reduce using rule 48 (expr -> BOOL_CONST .)
+    OF              reduce using rule 48 (expr -> BOOL_CONST .)
+    COMMA           reduce using rule 48 (expr -> BOOL_CONST .)
+    RBRACE          reduce using rule 48 (expr -> BOOL_CONST .)
+    ELSE            reduce using rule 48 (expr -> BOOL_CONST .)
+    POOL            reduce using rule 48 (expr -> BOOL_CONST .)
+    FI              reduce using rule 48 (expr -> BOOL_CONST .)
+    IN              reduce using rule 48 (expr -> BOOL_CONST .)
+
+
+state 50
+
+    (49) expr -> SELF .
+
+    DOT             reduce using rule 49 (expr -> SELF .)
+    AT              reduce using rule 49 (expr -> SELF .)
+    PLUS            reduce using rule 49 (expr -> SELF .)
+    MINUS           reduce using rule 49 (expr -> SELF .)
+    MULT            reduce using rule 49 (expr -> SELF .)
+    DIV             reduce using rule 49 (expr -> SELF .)
+    LT              reduce using rule 49 (expr -> SELF .)
+    LE              reduce using rule 49 (expr -> SELF .)
+    EQ              reduce using rule 49 (expr -> SELF .)
+    SEMICOLON       reduce using rule 49 (expr -> SELF .)
+    RPAREN          reduce using rule 49 (expr -> SELF .)
+    THEN            reduce using rule 49 (expr -> SELF .)
+    LOOP            reduce using rule 49 (expr -> SELF .)
+    OF              reduce using rule 49 (expr -> SELF .)
+    COMMA           reduce using rule 49 (expr -> SELF .)
+    RBRACE          reduce using rule 49 (expr -> SELF .)
+    ELSE            reduce using rule 49 (expr -> SELF .)
+    POOL            reduce using rule 49 (expr -> SELF .)
+    FI              reduce using rule 49 (expr -> SELF .)
+    IN              reduce using rule 49 (expr -> SELF .)
+
+
+state 51
+
+    (8) feature -> OBJECTID LPAREN param_list RPAREN COLON TYPEID . LBRACE expr RBRACE
+
+    LBRACE          shift and go to state 76
+
+
+state 52
+
+    (15) expr -> OBJECTID ASSIGN . expr
+    (15) expr -> . OBJECTID ASSIGN expr
+    (16) expr -> . expr DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> . expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (18) expr -> . OBJECTID LPAREN arg_list RPAREN
+    (19) expr -> . IF expr THEN expr ELSE expr FI
+    (20) expr -> . WHILE expr LOOP expr POOL
+    (21) expr -> . LBRACE expr_list RBRACE
+    (24) expr -> . LET let_bindings IN expr
+    (29) expr -> . CASE expr OF case_list ESAC
+    (33) expr -> . NEW TYPEID
+    (34) expr -> . ISVOID expr
+    (35) expr -> . expr PLUS expr
+    (36) expr -> . expr MINUS expr
+    (37) expr -> . expr MULT expr
+    (38) expr -> . expr DIV expr
+    (39) expr -> . expr LT expr
+    (40) expr -> . expr LE expr
+    (41) expr -> . expr EQ expr
+    (42) expr -> . NOT expr
+    (43) expr -> . TILDE expr
+    (44) expr -> . LPAREN expr RPAREN
+    (45) expr -> . OBJECTID
+    (46) expr -> . INT_CONST
+    (47) expr -> . STR_CONST
+    (48) expr -> . BOOL_CONST
+    (49) expr -> . SELF
+
+    OBJECTID        shift and go to state 35
+    IF              shift and go to state 38
+    WHILE           shift and go to state 39
+    LBRACE          shift and go to state 40
+    LET             shift and go to state 41
+    CASE            shift and go to state 42
+    NEW             shift and go to state 43
+    ISVOID          shift and go to state 44
+    NOT             shift and go to state 45
+    TILDE           shift and go to state 46
+    LPAREN          shift and go to state 37
+    INT_CONST       shift and go to state 47
+    STR_CONST       shift and go to state 48
+    BOOL_CONST      shift and go to state 49
+    SELF            shift and go to state 50
+
+    expr                           shift and go to state 77
+
+state 53
+
+    (18) expr -> OBJECTID LPAREN . arg_list RPAREN
+    (50) arg_list -> . arg_list COMMA expr
+    (51) arg_list -> . expr
+    (52) arg_list -> . empty
+    (15) expr -> . OBJECTID ASSIGN expr
+    (16) expr -> . expr DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> . expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (18) expr -> . OBJECTID LPAREN arg_list RPAREN
+    (19) expr -> . IF expr THEN expr ELSE expr FI
+    (20) expr -> . WHILE expr LOOP expr POOL
+    (21) expr -> . LBRACE expr_list RBRACE
+    (24) expr -> . LET let_bindings IN expr
+    (29) expr -> . CASE expr OF case_list ESAC
+    (33) expr -> . NEW TYPEID
+    (34) expr -> . ISVOID expr
+    (35) expr -> . expr PLUS expr
+    (36) expr -> . expr MINUS expr
+    (37) expr -> . expr MULT expr
+    (38) expr -> . expr DIV expr
+    (39) expr -> . expr LT expr
+    (40) expr -> . expr LE expr
+    (41) expr -> . expr EQ expr
+    (42) expr -> . NOT expr
+    (43) expr -> . TILDE expr
+    (44) expr -> . LPAREN expr RPAREN
+    (45) expr -> . OBJECTID
+    (46) expr -> . INT_CONST
+    (47) expr -> . STR_CONST
+    (48) expr -> . BOOL_CONST
+    (49) expr -> . SELF
+    (53) empty -> .
+
+    OBJECTID        shift and go to state 35
+    IF              shift and go to state 38
+    WHILE           shift and go to state 39
+    LBRACE          shift and go to state 40
+    LET             shift and go to state 41
+    CASE            shift and go to state 42
+    NEW             shift and go to state 43
+    ISVOID          shift and go to state 44
+    NOT             shift and go to state 45
+    TILDE           shift and go to state 46
+    LPAREN          shift and go to state 37
+    INT_CONST       shift and go to state 47
+    STR_CONST       shift and go to state 48
+    BOOL_CONST      shift and go to state 49
+    SELF            shift and go to state 50
+    RPAREN          reduce using rule 53 (empty -> .)
+    COMMA           reduce using rule 53 (empty -> .)
+
+    arg_list                       shift and go to state 78
+    expr                           shift and go to state 79
+    empty                          shift and go to state 80
+
+state 54
+
+    (16) expr -> expr DOT . OBJECTID LPAREN arg_list RPAREN
+
+    OBJECTID        shift and go to state 81
+
+
+state 55
+
+    (17) expr -> expr AT . TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+
+    TYPEID          shift and go to state 82
+
+
+state 56
+
+    (35) expr -> expr PLUS . expr
+    (15) expr -> . OBJECTID ASSIGN expr
+    (16) expr -> . expr DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> . expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (18) expr -> . OBJECTID LPAREN arg_list RPAREN
+    (19) expr -> . IF expr THEN expr ELSE expr FI
+    (20) expr -> . WHILE expr LOOP expr POOL
+    (21) expr -> . LBRACE expr_list RBRACE
+    (24) expr -> . LET let_bindings IN expr
+    (29) expr -> . CASE expr OF case_list ESAC
+    (33) expr -> . NEW TYPEID
+    (34) expr -> . ISVOID expr
+    (35) expr -> . expr PLUS expr
+    (36) expr -> . expr MINUS expr
+    (37) expr -> . expr MULT expr
+    (38) expr -> . expr DIV expr
+    (39) expr -> . expr LT expr
+    (40) expr -> . expr LE expr
+    (41) expr -> . expr EQ expr
+    (42) expr -> . NOT expr
+    (43) expr -> . TILDE expr
+    (44) expr -> . LPAREN expr RPAREN
+    (45) expr -> . OBJECTID
+    (46) expr -> . INT_CONST
+    (47) expr -> . STR_CONST
+    (48) expr -> . BOOL_CONST
+    (49) expr -> . SELF
+
+    OBJECTID        shift and go to state 35
+    IF              shift and go to state 38
+    WHILE           shift and go to state 39
+    LBRACE          shift and go to state 40
+    LET             shift and go to state 41
+    CASE            shift and go to state 42
+    NEW             shift and go to state 43
+    ISVOID          shift and go to state 44
+    NOT             shift and go to state 45
+    TILDE           shift and go to state 46
+    LPAREN          shift and go to state 37
+    INT_CONST       shift and go to state 47
+    STR_CONST       shift and go to state 48
+    BOOL_CONST      shift and go to state 49
+    SELF            shift and go to state 50
+
+    expr                           shift and go to state 83
+
+state 57
+
+    (36) expr -> expr MINUS . expr
+    (15) expr -> . OBJECTID ASSIGN expr
+    (16) expr -> . expr DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> . expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (18) expr -> . OBJECTID LPAREN arg_list RPAREN
+    (19) expr -> . IF expr THEN expr ELSE expr FI
+    (20) expr -> . WHILE expr LOOP expr POOL
+    (21) expr -> . LBRACE expr_list RBRACE
+    (24) expr -> . LET let_bindings IN expr
+    (29) expr -> . CASE expr OF case_list ESAC
+    (33) expr -> . NEW TYPEID
+    (34) expr -> . ISVOID expr
+    (35) expr -> . expr PLUS expr
+    (36) expr -> . expr MINUS expr
+    (37) expr -> . expr MULT expr
+    (38) expr -> . expr DIV expr
+    (39) expr -> . expr LT expr
+    (40) expr -> . expr LE expr
+    (41) expr -> . expr EQ expr
+    (42) expr -> . NOT expr
+    (43) expr -> . TILDE expr
+    (44) expr -> . LPAREN expr RPAREN
+    (45) expr -> . OBJECTID
+    (46) expr -> . INT_CONST
+    (47) expr -> . STR_CONST
+    (48) expr -> . BOOL_CONST
+    (49) expr -> . SELF
+
+    OBJECTID        shift and go to state 35
+    IF              shift and go to state 38
+    WHILE           shift and go to state 39
+    LBRACE          shift and go to state 40
+    LET             shift and go to state 41
+    CASE            shift and go to state 42
+    NEW             shift and go to state 43
+    ISVOID          shift and go to state 44
+    NOT             shift and go to state 45
+    TILDE           shift and go to state 46
+    LPAREN          shift and go to state 37
+    INT_CONST       shift and go to state 47
+    STR_CONST       shift and go to state 48
+    BOOL_CONST      shift and go to state 49
+    SELF            shift and go to state 50
+
+    expr                           shift and go to state 84
+
+state 58
+
+    (37) expr -> expr MULT . expr
+    (15) expr -> . OBJECTID ASSIGN expr
+    (16) expr -> . expr DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> . expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (18) expr -> . OBJECTID LPAREN arg_list RPAREN
+    (19) expr -> . IF expr THEN expr ELSE expr FI
+    (20) expr -> . WHILE expr LOOP expr POOL
+    (21) expr -> . LBRACE expr_list RBRACE
+    (24) expr -> . LET let_bindings IN expr
+    (29) expr -> . CASE expr OF case_list ESAC
+    (33) expr -> . NEW TYPEID
+    (34) expr -> . ISVOID expr
+    (35) expr -> . expr PLUS expr
+    (36) expr -> . expr MINUS expr
+    (37) expr -> . expr MULT expr
+    (38) expr -> . expr DIV expr
+    (39) expr -> . expr LT expr
+    (40) expr -> . expr LE expr
+    (41) expr -> . expr EQ expr
+    (42) expr -> . NOT expr
+    (43) expr -> . TILDE expr
+    (44) expr -> . LPAREN expr RPAREN
+    (45) expr -> . OBJECTID
+    (46) expr -> . INT_CONST
+    (47) expr -> . STR_CONST
+    (48) expr -> . BOOL_CONST
+    (49) expr -> . SELF
+
+    OBJECTID        shift and go to state 35
+    IF              shift and go to state 38
+    WHILE           shift and go to state 39
+    LBRACE          shift and go to state 40
+    LET             shift and go to state 41
+    CASE            shift and go to state 42
+    NEW             shift and go to state 43
+    ISVOID          shift and go to state 44
+    NOT             shift and go to state 45
+    TILDE           shift and go to state 46
+    LPAREN          shift and go to state 37
+    INT_CONST       shift and go to state 47
+    STR_CONST       shift and go to state 48
+    BOOL_CONST      shift and go to state 49
+    SELF            shift and go to state 50
+
+    expr                           shift and go to state 85
+
+state 59
+
+    (38) expr -> expr DIV . expr
+    (15) expr -> . OBJECTID ASSIGN expr
+    (16) expr -> . expr DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> . expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (18) expr -> . OBJECTID LPAREN arg_list RPAREN
+    (19) expr -> . IF expr THEN expr ELSE expr FI
+    (20) expr -> . WHILE expr LOOP expr POOL
+    (21) expr -> . LBRACE expr_list RBRACE
+    (24) expr -> . LET let_bindings IN expr
+    (29) expr -> . CASE expr OF case_list ESAC
+    (33) expr -> . NEW TYPEID
+    (34) expr -> . ISVOID expr
+    (35) expr -> . expr PLUS expr
+    (36) expr -> . expr MINUS expr
+    (37) expr -> . expr MULT expr
+    (38) expr -> . expr DIV expr
+    (39) expr -> . expr LT expr
+    (40) expr -> . expr LE expr
+    (41) expr -> . expr EQ expr
+    (42) expr -> . NOT expr
+    (43) expr -> . TILDE expr
+    (44) expr -> . LPAREN expr RPAREN
+    (45) expr -> . OBJECTID
+    (46) expr -> . INT_CONST
+    (47) expr -> . STR_CONST
+    (48) expr -> . BOOL_CONST
+    (49) expr -> . SELF
+
+    OBJECTID        shift and go to state 35
+    IF              shift and go to state 38
+    WHILE           shift and go to state 39
+    LBRACE          shift and go to state 40
+    LET             shift and go to state 41
+    CASE            shift and go to state 42
+    NEW             shift and go to state 43
+    ISVOID          shift and go to state 44
+    NOT             shift and go to state 45
+    TILDE           shift and go to state 46
+    LPAREN          shift and go to state 37
+    INT_CONST       shift and go to state 47
+    STR_CONST       shift and go to state 48
+    BOOL_CONST      shift and go to state 49
+    SELF            shift and go to state 50
+
+    expr                           shift and go to state 86
+
+state 60
+
+    (39) expr -> expr LT . expr
+    (15) expr -> . OBJECTID ASSIGN expr
+    (16) expr -> . expr DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> . expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (18) expr -> . OBJECTID LPAREN arg_list RPAREN
+    (19) expr -> . IF expr THEN expr ELSE expr FI
+    (20) expr -> . WHILE expr LOOP expr POOL
+    (21) expr -> . LBRACE expr_list RBRACE
+    (24) expr -> . LET let_bindings IN expr
+    (29) expr -> . CASE expr OF case_list ESAC
+    (33) expr -> . NEW TYPEID
+    (34) expr -> . ISVOID expr
+    (35) expr -> . expr PLUS expr
+    (36) expr -> . expr MINUS expr
+    (37) expr -> . expr MULT expr
+    (38) expr -> . expr DIV expr
+    (39) expr -> . expr LT expr
+    (40) expr -> . expr LE expr
+    (41) expr -> . expr EQ expr
+    (42) expr -> . NOT expr
+    (43) expr -> . TILDE expr
+    (44) expr -> . LPAREN expr RPAREN
+    (45) expr -> . OBJECTID
+    (46) expr -> . INT_CONST
+    (47) expr -> . STR_CONST
+    (48) expr -> . BOOL_CONST
+    (49) expr -> . SELF
+
+    OBJECTID        shift and go to state 35
+    IF              shift and go to state 38
+    WHILE           shift and go to state 39
+    LBRACE          shift and go to state 40
+    LET             shift and go to state 41
+    CASE            shift and go to state 42
+    NEW             shift and go to state 43
+    ISVOID          shift and go to state 44
+    NOT             shift and go to state 45
+    TILDE           shift and go to state 46
+    LPAREN          shift and go to state 37
+    INT_CONST       shift and go to state 47
+    STR_CONST       shift and go to state 48
+    BOOL_CONST      shift and go to state 49
+    SELF            shift and go to state 50
+
+    expr                           shift and go to state 87
+
+state 61
+
+    (40) expr -> expr LE . expr
+    (15) expr -> . OBJECTID ASSIGN expr
+    (16) expr -> . expr DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> . expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (18) expr -> . OBJECTID LPAREN arg_list RPAREN
+    (19) expr -> . IF expr THEN expr ELSE expr FI
+    (20) expr -> . WHILE expr LOOP expr POOL
+    (21) expr -> . LBRACE expr_list RBRACE
+    (24) expr -> . LET let_bindings IN expr
+    (29) expr -> . CASE expr OF case_list ESAC
+    (33) expr -> . NEW TYPEID
+    (34) expr -> . ISVOID expr
+    (35) expr -> . expr PLUS expr
+    (36) expr -> . expr MINUS expr
+    (37) expr -> . expr MULT expr
+    (38) expr -> . expr DIV expr
+    (39) expr -> . expr LT expr
+    (40) expr -> . expr LE expr
+    (41) expr -> . expr EQ expr
+    (42) expr -> . NOT expr
+    (43) expr -> . TILDE expr
+    (44) expr -> . LPAREN expr RPAREN
+    (45) expr -> . OBJECTID
+    (46) expr -> . INT_CONST
+    (47) expr -> . STR_CONST
+    (48) expr -> . BOOL_CONST
+    (49) expr -> . SELF
+
+    OBJECTID        shift and go to state 35
+    IF              shift and go to state 38
+    WHILE           shift and go to state 39
+    LBRACE          shift and go to state 40
+    LET             shift and go to state 41
+    CASE            shift and go to state 42
+    NEW             shift and go to state 43
+    ISVOID          shift and go to state 44
+    NOT             shift and go to state 45
+    TILDE           shift and go to state 46
+    LPAREN          shift and go to state 37
+    INT_CONST       shift and go to state 47
+    STR_CONST       shift and go to state 48
+    BOOL_CONST      shift and go to state 49
+    SELF            shift and go to state 50
+
+    expr                           shift and go to state 88
+
+state 62
+
+    (41) expr -> expr EQ . expr
+    (15) expr -> . OBJECTID ASSIGN expr
+    (16) expr -> . expr DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> . expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (18) expr -> . OBJECTID LPAREN arg_list RPAREN
+    (19) expr -> . IF expr THEN expr ELSE expr FI
+    (20) expr -> . WHILE expr LOOP expr POOL
+    (21) expr -> . LBRACE expr_list RBRACE
+    (24) expr -> . LET let_bindings IN expr
+    (29) expr -> . CASE expr OF case_list ESAC
+    (33) expr -> . NEW TYPEID
+    (34) expr -> . ISVOID expr
+    (35) expr -> . expr PLUS expr
+    (36) expr -> . expr MINUS expr
+    (37) expr -> . expr MULT expr
+    (38) expr -> . expr DIV expr
+    (39) expr -> . expr LT expr
+    (40) expr -> . expr LE expr
+    (41) expr -> . expr EQ expr
+    (42) expr -> . NOT expr
+    (43) expr -> . TILDE expr
+    (44) expr -> . LPAREN expr RPAREN
+    (45) expr -> . OBJECTID
+    (46) expr -> . INT_CONST
+    (47) expr -> . STR_CONST
+    (48) expr -> . BOOL_CONST
+    (49) expr -> . SELF
+
+    OBJECTID        shift and go to state 35
+    IF              shift and go to state 38
+    WHILE           shift and go to state 39
+    LBRACE          shift and go to state 40
+    LET             shift and go to state 41
+    CASE            shift and go to state 42
+    NEW             shift and go to state 43
+    ISVOID          shift and go to state 44
+    NOT             shift and go to state 45
+    TILDE           shift and go to state 46
+    LPAREN          shift and go to state 37
+    INT_CONST       shift and go to state 47
+    STR_CONST       shift and go to state 48
+    BOOL_CONST      shift and go to state 49
+    SELF            shift and go to state 50
+
+    expr                           shift and go to state 89
+
+state 63
+
+    (44) expr -> LPAREN expr . RPAREN
+    (16) expr -> expr . DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> expr . AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (35) expr -> expr . PLUS expr
+    (36) expr -> expr . MINUS expr
+    (37) expr -> expr . MULT expr
+    (38) expr -> expr . DIV expr
+    (39) expr -> expr . LT expr
+    (40) expr -> expr . LE expr
+    (41) expr -> expr . EQ expr
+
+    RPAREN          shift and go to state 90
+    DOT             shift and go to state 54
+    AT              shift and go to state 55
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    MULT            shift and go to state 58
+    DIV             shift and go to state 59
+    LT              shift and go to state 60
+    LE              shift and go to state 61
+    EQ              shift and go to state 62
+
+
+state 64
+
+    (19) expr -> IF expr . THEN expr ELSE expr FI
+    (16) expr -> expr . DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> expr . AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (35) expr -> expr . PLUS expr
+    (36) expr -> expr . MINUS expr
+    (37) expr -> expr . MULT expr
+    (38) expr -> expr . DIV expr
+    (39) expr -> expr . LT expr
+    (40) expr -> expr . LE expr
+    (41) expr -> expr . EQ expr
+
+    THEN            shift and go to state 91
+    DOT             shift and go to state 54
+    AT              shift and go to state 55
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    MULT            shift and go to state 58
+    DIV             shift and go to state 59
+    LT              shift and go to state 60
+    LE              shift and go to state 61
+    EQ              shift and go to state 62
+
+
+state 65
+
+    (20) expr -> WHILE expr . LOOP expr POOL
+    (16) expr -> expr . DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> expr . AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (35) expr -> expr . PLUS expr
+    (36) expr -> expr . MINUS expr
+    (37) expr -> expr . MULT expr
+    (38) expr -> expr . DIV expr
+    (39) expr -> expr . LT expr
+    (40) expr -> expr . LE expr
+    (41) expr -> expr . EQ expr
+
+    LOOP            shift and go to state 92
+    DOT             shift and go to state 54
+    AT              shift and go to state 55
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    MULT            shift and go to state 58
+    DIV             shift and go to state 59
+    LT              shift and go to state 60
+    LE              shift and go to state 61
+    EQ              shift and go to state 62
+
+
+state 66
+
+    (21) expr -> LBRACE expr_list . RBRACE
+    (22) expr_list -> expr_list . expr SEMICOLON
+    (15) expr -> . OBJECTID ASSIGN expr
+    (16) expr -> . expr DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> . expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (18) expr -> . OBJECTID LPAREN arg_list RPAREN
+    (19) expr -> . IF expr THEN expr ELSE expr FI
+    (20) expr -> . WHILE expr LOOP expr POOL
+    (21) expr -> . LBRACE expr_list RBRACE
+    (24) expr -> . LET let_bindings IN expr
+    (29) expr -> . CASE expr OF case_list ESAC
+    (33) expr -> . NEW TYPEID
+    (34) expr -> . ISVOID expr
+    (35) expr -> . expr PLUS expr
+    (36) expr -> . expr MINUS expr
+    (37) expr -> . expr MULT expr
+    (38) expr -> . expr DIV expr
+    (39) expr -> . expr LT expr
+    (40) expr -> . expr LE expr
+    (41) expr -> . expr EQ expr
+    (42) expr -> . NOT expr
+    (43) expr -> . TILDE expr
+    (44) expr -> . LPAREN expr RPAREN
+    (45) expr -> . OBJECTID
+    (46) expr -> . INT_CONST
+    (47) expr -> . STR_CONST
+    (48) expr -> . BOOL_CONST
+    (49) expr -> . SELF
+
+    RBRACE          shift and go to state 93
+    OBJECTID        shift and go to state 35
+    IF              shift and go to state 38
+    WHILE           shift and go to state 39
+    LBRACE          shift and go to state 40
+    LET             shift and go to state 41
+    CASE            shift and go to state 42
+    NEW             shift and go to state 43
+    ISVOID          shift and go to state 44
+    NOT             shift and go to state 45
+    TILDE           shift and go to state 46
+    LPAREN          shift and go to state 37
+    INT_CONST       shift and go to state 47
+    STR_CONST       shift and go to state 48
+    BOOL_CONST      shift and go to state 49
+    SELF            shift and go to state 50
+
+    expr                           shift and go to state 94
+
+state 67
+
+    (23) expr_list -> expr . SEMICOLON
+    (16) expr -> expr . DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> expr . AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (35) expr -> expr . PLUS expr
+    (36) expr -> expr . MINUS expr
+    (37) expr -> expr . MULT expr
+    (38) expr -> expr . DIV expr
+    (39) expr -> expr . LT expr
+    (40) expr -> expr . LE expr
+    (41) expr -> expr . EQ expr
+
+    SEMICOLON       shift and go to state 95
+    DOT             shift and go to state 54
+    AT              shift and go to state 55
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    MULT            shift and go to state 58
+    DIV             shift and go to state 59
+    LT              shift and go to state 60
+    LE              shift and go to state 61
+    EQ              shift and go to state 62
+
+
+state 68
+
+    (24) expr -> LET let_bindings . IN expr
+    (25) let_bindings -> let_bindings . COMMA let_binding
+
+    IN              shift and go to state 96
+    COMMA           shift and go to state 97
+
+
+state 69
+
+    (26) let_bindings -> let_binding .
+
+    IN              reduce using rule 26 (let_bindings -> let_binding .)
+    COMMA           reduce using rule 26 (let_bindings -> let_binding .)
+
+
+state 70
+
+    (27) let_binding -> OBJECTID . COLON TYPEID ASSIGN expr
+    (28) let_binding -> OBJECTID . COLON TYPEID
+
+    COLON           shift and go to state 98
+
+
+state 71
+
+    (29) expr -> CASE expr . OF case_list ESAC
+    (16) expr -> expr . DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> expr . AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (35) expr -> expr . PLUS expr
+    (36) expr -> expr . MINUS expr
+    (37) expr -> expr . MULT expr
+    (38) expr -> expr . DIV expr
+    (39) expr -> expr . LT expr
+    (40) expr -> expr . LE expr
+    (41) expr -> expr . EQ expr
+
+    OF              shift and go to state 99
+    DOT             shift and go to state 54
+    AT              shift and go to state 55
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    MULT            shift and go to state 58
+    DIV             shift and go to state 59
+    LT              shift and go to state 60
+    LE              shift and go to state 61
+    EQ              shift and go to state 62
+
+
+state 72
+
+    (33) expr -> NEW TYPEID .
+
+    DOT             reduce using rule 33 (expr -> NEW TYPEID .)
+    AT              reduce using rule 33 (expr -> NEW TYPEID .)
+    PLUS            reduce using rule 33 (expr -> NEW TYPEID .)
+    MINUS           reduce using rule 33 (expr -> NEW TYPEID .)
+    MULT            reduce using rule 33 (expr -> NEW TYPEID .)
+    DIV             reduce using rule 33 (expr -> NEW TYPEID .)
+    LT              reduce using rule 33 (expr -> NEW TYPEID .)
+    LE              reduce using rule 33 (expr -> NEW TYPEID .)
+    EQ              reduce using rule 33 (expr -> NEW TYPEID .)
+    SEMICOLON       reduce using rule 33 (expr -> NEW TYPEID .)
+    RPAREN          reduce using rule 33 (expr -> NEW TYPEID .)
+    THEN            reduce using rule 33 (expr -> NEW TYPEID .)
+    LOOP            reduce using rule 33 (expr -> NEW TYPEID .)
+    OF              reduce using rule 33 (expr -> NEW TYPEID .)
+    COMMA           reduce using rule 33 (expr -> NEW TYPEID .)
+    RBRACE          reduce using rule 33 (expr -> NEW TYPEID .)
+    ELSE            reduce using rule 33 (expr -> NEW TYPEID .)
+    POOL            reduce using rule 33 (expr -> NEW TYPEID .)
+    FI              reduce using rule 33 (expr -> NEW TYPEID .)
+    IN              reduce using rule 33 (expr -> NEW TYPEID .)
+
+
+state 73
+
+    (34) expr -> ISVOID expr .
+    (16) expr -> expr . DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> expr . AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (35) expr -> expr . PLUS expr
+    (36) expr -> expr . MINUS expr
+    (37) expr -> expr . MULT expr
+    (38) expr -> expr . DIV expr
+    (39) expr -> expr . LT expr
+    (40) expr -> expr . LE expr
+    (41) expr -> expr . EQ expr
+
+    PLUS            reduce using rule 34 (expr -> ISVOID expr .)
+    MINUS           reduce using rule 34 (expr -> ISVOID expr .)
+    MULT            reduce using rule 34 (expr -> ISVOID expr .)
+    DIV             reduce using rule 34 (expr -> ISVOID expr .)
+    LT              reduce using rule 34 (expr -> ISVOID expr .)
+    LE              reduce using rule 34 (expr -> ISVOID expr .)
+    EQ              reduce using rule 34 (expr -> ISVOID expr .)
+    SEMICOLON       reduce using rule 34 (expr -> ISVOID expr .)
+    RPAREN          reduce using rule 34 (expr -> ISVOID expr .)
+    THEN            reduce using rule 34 (expr -> ISVOID expr .)
+    LOOP            reduce using rule 34 (expr -> ISVOID expr .)
+    OF              reduce using rule 34 (expr -> ISVOID expr .)
+    COMMA           reduce using rule 34 (expr -> ISVOID expr .)
+    RBRACE          reduce using rule 34 (expr -> ISVOID expr .)
+    ELSE            reduce using rule 34 (expr -> ISVOID expr .)
+    POOL            reduce using rule 34 (expr -> ISVOID expr .)
+    FI              reduce using rule 34 (expr -> ISVOID expr .)
+    IN              reduce using rule 34 (expr -> ISVOID expr .)
+    DOT             shift and go to state 54
+    AT              shift and go to state 55
+
+  ! DOT             [ reduce using rule 34 (expr -> ISVOID expr .) ]
+  ! AT              [ reduce using rule 34 (expr -> ISVOID expr .) ]
+  ! PLUS            [ shift and go to state 56 ]
+  ! MINUS           [ shift and go to state 57 ]
+  ! MULT            [ shift and go to state 58 ]
+  ! DIV             [ shift and go to state 59 ]
+  ! LT              [ shift and go to state 60 ]
+  ! LE              [ shift and go to state 61 ]
+  ! EQ              [ shift and go to state 62 ]
+
+
+state 74
+
+    (42) expr -> NOT expr .
+    (16) expr -> expr . DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> expr . AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (35) expr -> expr . PLUS expr
+    (36) expr -> expr . MINUS expr
+    (37) expr -> expr . MULT expr
+    (38) expr -> expr . DIV expr
+    (39) expr -> expr . LT expr
+    (40) expr -> expr . LE expr
+    (41) expr -> expr . EQ expr
+
+    SEMICOLON       reduce using rule 42 (expr -> NOT expr .)
+    RPAREN          reduce using rule 42 (expr -> NOT expr .)
+    THEN            reduce using rule 42 (expr -> NOT expr .)
+    LOOP            reduce using rule 42 (expr -> NOT expr .)
+    OF              reduce using rule 42 (expr -> NOT expr .)
+    COMMA           reduce using rule 42 (expr -> NOT expr .)
+    RBRACE          reduce using rule 42 (expr -> NOT expr .)
+    ELSE            reduce using rule 42 (expr -> NOT expr .)
+    POOL            reduce using rule 42 (expr -> NOT expr .)
+    FI              reduce using rule 42 (expr -> NOT expr .)
+    IN              reduce using rule 42 (expr -> NOT expr .)
+    DOT             shift and go to state 54
+    AT              shift and go to state 55
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    MULT            shift and go to state 58
+    DIV             shift and go to state 59
+    LT              shift and go to state 60
+    LE              shift and go to state 61
+    EQ              shift and go to state 62
+
+  ! DOT             [ reduce using rule 42 (expr -> NOT expr .) ]
+  ! AT              [ reduce using rule 42 (expr -> NOT expr .) ]
+  ! PLUS            [ reduce using rule 42 (expr -> NOT expr .) ]
+  ! MINUS           [ reduce using rule 42 (expr -> NOT expr .) ]
+  ! MULT            [ reduce using rule 42 (expr -> NOT expr .) ]
+  ! DIV             [ reduce using rule 42 (expr -> NOT expr .) ]
+  ! LT              [ reduce using rule 42 (expr -> NOT expr .) ]
+  ! LE              [ reduce using rule 42 (expr -> NOT expr .) ]
+  ! EQ              [ reduce using rule 42 (expr -> NOT expr .) ]
+
+
+state 75
+
+    (43) expr -> TILDE expr .
+    (16) expr -> expr . DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> expr . AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (35) expr -> expr . PLUS expr
+    (36) expr -> expr . MINUS expr
+    (37) expr -> expr . MULT expr
+    (38) expr -> expr . DIV expr
+    (39) expr -> expr . LT expr
+    (40) expr -> expr . LE expr
+    (41) expr -> expr . EQ expr
+
+    PLUS            reduce using rule 43 (expr -> TILDE expr .)
+    MINUS           reduce using rule 43 (expr -> TILDE expr .)
+    MULT            reduce using rule 43 (expr -> TILDE expr .)
+    DIV             reduce using rule 43 (expr -> TILDE expr .)
+    LT              reduce using rule 43 (expr -> TILDE expr .)
+    LE              reduce using rule 43 (expr -> TILDE expr .)
+    EQ              reduce using rule 43 (expr -> TILDE expr .)
+    SEMICOLON       reduce using rule 43 (expr -> TILDE expr .)
+    RPAREN          reduce using rule 43 (expr -> TILDE expr .)
+    THEN            reduce using rule 43 (expr -> TILDE expr .)
+    LOOP            reduce using rule 43 (expr -> TILDE expr .)
+    OF              reduce using rule 43 (expr -> TILDE expr .)
+    COMMA           reduce using rule 43 (expr -> TILDE expr .)
+    RBRACE          reduce using rule 43 (expr -> TILDE expr .)
+    ELSE            reduce using rule 43 (expr -> TILDE expr .)
+    POOL            reduce using rule 43 (expr -> TILDE expr .)
+    FI              reduce using rule 43 (expr -> TILDE expr .)
+    IN              reduce using rule 43 (expr -> TILDE expr .)
+    DOT             shift and go to state 54
+    AT              shift and go to state 55
+
+  ! DOT             [ reduce using rule 43 (expr -> TILDE expr .) ]
+  ! AT              [ reduce using rule 43 (expr -> TILDE expr .) ]
+  ! PLUS            [ shift and go to state 56 ]
+  ! MINUS           [ shift and go to state 57 ]
+  ! MULT            [ shift and go to state 58 ]
+  ! DIV             [ shift and go to state 59 ]
+  ! LT              [ shift and go to state 60 ]
+  ! LE              [ shift and go to state 61 ]
+  ! EQ              [ shift and go to state 62 ]
+
+
+state 76
+
+    (8) feature -> OBJECTID LPAREN param_list RPAREN COLON TYPEID LBRACE . expr RBRACE
+    (15) expr -> . OBJECTID ASSIGN expr
+    (16) expr -> . expr DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> . expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (18) expr -> . OBJECTID LPAREN arg_list RPAREN
+    (19) expr -> . IF expr THEN expr ELSE expr FI
+    (20) expr -> . WHILE expr LOOP expr POOL
+    (21) expr -> . LBRACE expr_list RBRACE
+    (24) expr -> . LET let_bindings IN expr
+    (29) expr -> . CASE expr OF case_list ESAC
+    (33) expr -> . NEW TYPEID
+    (34) expr -> . ISVOID expr
+    (35) expr -> . expr PLUS expr
+    (36) expr -> . expr MINUS expr
+    (37) expr -> . expr MULT expr
+    (38) expr -> . expr DIV expr
+    (39) expr -> . expr LT expr
+    (40) expr -> . expr LE expr
+    (41) expr -> . expr EQ expr
+    (42) expr -> . NOT expr
+    (43) expr -> . TILDE expr
+    (44) expr -> . LPAREN expr RPAREN
+    (45) expr -> . OBJECTID
+    (46) expr -> . INT_CONST
+    (47) expr -> . STR_CONST
+    (48) expr -> . BOOL_CONST
+    (49) expr -> . SELF
+
+    OBJECTID        shift and go to state 35
+    IF              shift and go to state 38
+    WHILE           shift and go to state 39
+    LBRACE          shift and go to state 40
+    LET             shift and go to state 41
+    CASE            shift and go to state 42
+    NEW             shift and go to state 43
+    ISVOID          shift and go to state 44
+    NOT             shift and go to state 45
+    TILDE           shift and go to state 46
+    LPAREN          shift and go to state 37
+    INT_CONST       shift and go to state 47
+    STR_CONST       shift and go to state 48
+    BOOL_CONST      shift and go to state 49
+    SELF            shift and go to state 50
+
+    expr                           shift and go to state 100
+
+state 77
+
+    (15) expr -> OBJECTID ASSIGN expr .
+    (16) expr -> expr . DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> expr . AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (35) expr -> expr . PLUS expr
+    (36) expr -> expr . MINUS expr
+    (37) expr -> expr . MULT expr
+    (38) expr -> expr . DIV expr
+    (39) expr -> expr . LT expr
+    (40) expr -> expr . LE expr
+    (41) expr -> expr . EQ expr
+
+    SEMICOLON       reduce using rule 15 (expr -> OBJECTID ASSIGN expr .)
+    RPAREN          reduce using rule 15 (expr -> OBJECTID ASSIGN expr .)
+    THEN            reduce using rule 15 (expr -> OBJECTID ASSIGN expr .)
+    LOOP            reduce using rule 15 (expr -> OBJECTID ASSIGN expr .)
+    OF              reduce using rule 15 (expr -> OBJECTID ASSIGN expr .)
+    COMMA           reduce using rule 15 (expr -> OBJECTID ASSIGN expr .)
+    RBRACE          reduce using rule 15 (expr -> OBJECTID ASSIGN expr .)
+    ELSE            reduce using rule 15 (expr -> OBJECTID ASSIGN expr .)
+    POOL            reduce using rule 15 (expr -> OBJECTID ASSIGN expr .)
+    FI              reduce using rule 15 (expr -> OBJECTID ASSIGN expr .)
+    IN              reduce using rule 15 (expr -> OBJECTID ASSIGN expr .)
+    DOT             shift and go to state 54
+    AT              shift and go to state 55
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    MULT            shift and go to state 58
+    DIV             shift and go to state 59
+    LT              shift and go to state 60
+    LE              shift and go to state 61
+    EQ              shift and go to state 62
+
+  ! DOT             [ reduce using rule 15 (expr -> OBJECTID ASSIGN expr .) ]
+  ! AT              [ reduce using rule 15 (expr -> OBJECTID ASSIGN expr .) ]
+  ! PLUS            [ reduce using rule 15 (expr -> OBJECTID ASSIGN expr .) ]
+  ! MINUS           [ reduce using rule 15 (expr -> OBJECTID ASSIGN expr .) ]
+  ! MULT            [ reduce using rule 15 (expr -> OBJECTID ASSIGN expr .) ]
+  ! DIV             [ reduce using rule 15 (expr -> OBJECTID ASSIGN expr .) ]
+  ! LT              [ reduce using rule 15 (expr -> OBJECTID ASSIGN expr .) ]
+  ! LE              [ reduce using rule 15 (expr -> OBJECTID ASSIGN expr .) ]
+  ! EQ              [ reduce using rule 15 (expr -> OBJECTID ASSIGN expr .) ]
+
+
+state 78
+
+    (18) expr -> OBJECTID LPAREN arg_list . RPAREN
+    (50) arg_list -> arg_list . COMMA expr
+
+    RPAREN          shift and go to state 101
+    COMMA           shift and go to state 102
+
+
+state 79
+
+    (51) arg_list -> expr .
+    (16) expr -> expr . DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> expr . AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (35) expr -> expr . PLUS expr
+    (36) expr -> expr . MINUS expr
+    (37) expr -> expr . MULT expr
+    (38) expr -> expr . DIV expr
+    (39) expr -> expr . LT expr
+    (40) expr -> expr . LE expr
+    (41) expr -> expr . EQ expr
+
+    RPAREN          reduce using rule 51 (arg_list -> expr .)
+    COMMA           reduce using rule 51 (arg_list -> expr .)
+    DOT             shift and go to state 54
+    AT              shift and go to state 55
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    MULT            shift and go to state 58
+    DIV             shift and go to state 59
+    LT              shift and go to state 60
+    LE              shift and go to state 61
+    EQ              shift and go to state 62
+
+
+state 80
+
+    (52) arg_list -> empty .
+
+    RPAREN          reduce using rule 52 (arg_list -> empty .)
+    COMMA           reduce using rule 52 (arg_list -> empty .)
+
+
+state 81
+
+    (16) expr -> expr DOT OBJECTID . LPAREN arg_list RPAREN
+
+    LPAREN          shift and go to state 103
+
+
+state 82
+
+    (17) expr -> expr AT TYPEID . DOT OBJECTID LPAREN arg_list RPAREN
+
+    DOT             shift and go to state 104
+
+
+state 83
+
+    (35) expr -> expr PLUS expr .
+    (16) expr -> expr . DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> expr . AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (35) expr -> expr . PLUS expr
+    (36) expr -> expr . MINUS expr
+    (37) expr -> expr . MULT expr
+    (38) expr -> expr . DIV expr
+    (39) expr -> expr . LT expr
+    (40) expr -> expr . LE expr
+    (41) expr -> expr . EQ expr
+
+    PLUS            reduce using rule 35 (expr -> expr PLUS expr .)
+    MINUS           reduce using rule 35 (expr -> expr PLUS expr .)
+    LT              reduce using rule 35 (expr -> expr PLUS expr .)
+    LE              reduce using rule 35 (expr -> expr PLUS expr .)
+    EQ              reduce using rule 35 (expr -> expr PLUS expr .)
+    SEMICOLON       reduce using rule 35 (expr -> expr PLUS expr .)
+    RPAREN          reduce using rule 35 (expr -> expr PLUS expr .)
+    THEN            reduce using rule 35 (expr -> expr PLUS expr .)
+    LOOP            reduce using rule 35 (expr -> expr PLUS expr .)
+    OF              reduce using rule 35 (expr -> expr PLUS expr .)
+    COMMA           reduce using rule 35 (expr -> expr PLUS expr .)
+    RBRACE          reduce using rule 35 (expr -> expr PLUS expr .)
+    ELSE            reduce using rule 35 (expr -> expr PLUS expr .)
+    POOL            reduce using rule 35 (expr -> expr PLUS expr .)
+    FI              reduce using rule 35 (expr -> expr PLUS expr .)
+    IN              reduce using rule 35 (expr -> expr PLUS expr .)
+    DOT             shift and go to state 54
+    AT              shift and go to state 55
+    MULT            shift and go to state 58
+    DIV             shift and go to state 59
+
+  ! DOT             [ reduce using rule 35 (expr -> expr PLUS expr .) ]
+  ! AT              [ reduce using rule 35 (expr -> expr PLUS expr .) ]
+  ! MULT            [ reduce using rule 35 (expr -> expr PLUS expr .) ]
+  ! DIV             [ reduce using rule 35 (expr -> expr PLUS expr .) ]
+  ! PLUS            [ shift and go to state 56 ]
+  ! MINUS           [ shift and go to state 57 ]
+  ! LT              [ shift and go to state 60 ]
+  ! LE              [ shift and go to state 61 ]
+  ! EQ              [ shift and go to state 62 ]
+
+
+state 84
+
+    (36) expr -> expr MINUS expr .
+    (16) expr -> expr . DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> expr . AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (35) expr -> expr . PLUS expr
+    (36) expr -> expr . MINUS expr
+    (37) expr -> expr . MULT expr
+    (38) expr -> expr . DIV expr
+    (39) expr -> expr . LT expr
+    (40) expr -> expr . LE expr
+    (41) expr -> expr . EQ expr
+
+    PLUS            reduce using rule 36 (expr -> expr MINUS expr .)
+    MINUS           reduce using rule 36 (expr -> expr MINUS expr .)
+    LT              reduce using rule 36 (expr -> expr MINUS expr .)
+    LE              reduce using rule 36 (expr -> expr MINUS expr .)
+    EQ              reduce using rule 36 (expr -> expr MINUS expr .)
+    SEMICOLON       reduce using rule 36 (expr -> expr MINUS expr .)
+    RPAREN          reduce using rule 36 (expr -> expr MINUS expr .)
+    THEN            reduce using rule 36 (expr -> expr MINUS expr .)
+    LOOP            reduce using rule 36 (expr -> expr MINUS expr .)
+    OF              reduce using rule 36 (expr -> expr MINUS expr .)
+    COMMA           reduce using rule 36 (expr -> expr MINUS expr .)
+    RBRACE          reduce using rule 36 (expr -> expr MINUS expr .)
+    ELSE            reduce using rule 36 (expr -> expr MINUS expr .)
+    POOL            reduce using rule 36 (expr -> expr MINUS expr .)
+    FI              reduce using rule 36 (expr -> expr MINUS expr .)
+    IN              reduce using rule 36 (expr -> expr MINUS expr .)
+    DOT             shift and go to state 54
+    AT              shift and go to state 55
+    MULT            shift and go to state 58
+    DIV             shift and go to state 59
+
+  ! DOT             [ reduce using rule 36 (expr -> expr MINUS expr .) ]
+  ! AT              [ reduce using rule 36 (expr -> expr MINUS expr .) ]
+  ! MULT            [ reduce using rule 36 (expr -> expr MINUS expr .) ]
+  ! DIV             [ reduce using rule 36 (expr -> expr MINUS expr .) ]
+  ! PLUS            [ shift and go to state 56 ]
+  ! MINUS           [ shift and go to state 57 ]
+  ! LT              [ shift and go to state 60 ]
+  ! LE              [ shift and go to state 61 ]
+  ! EQ              [ shift and go to state 62 ]
+
+
+state 85
+
+    (37) expr -> expr MULT expr .
+    (16) expr -> expr . DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> expr . AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (35) expr -> expr . PLUS expr
+    (36) expr -> expr . MINUS expr
+    (37) expr -> expr . MULT expr
+    (38) expr -> expr . DIV expr
+    (39) expr -> expr . LT expr
+    (40) expr -> expr . LE expr
+    (41) expr -> expr . EQ expr
+
+    PLUS            reduce using rule 37 (expr -> expr MULT expr .)
+    MINUS           reduce using rule 37 (expr -> expr MULT expr .)
+    MULT            reduce using rule 37 (expr -> expr MULT expr .)
+    DIV             reduce using rule 37 (expr -> expr MULT expr .)
+    LT              reduce using rule 37 (expr -> expr MULT expr .)
+    LE              reduce using rule 37 (expr -> expr MULT expr .)
+    EQ              reduce using rule 37 (expr -> expr MULT expr .)
+    SEMICOLON       reduce using rule 37 (expr -> expr MULT expr .)
+    RPAREN          reduce using rule 37 (expr -> expr MULT expr .)
+    THEN            reduce using rule 37 (expr -> expr MULT expr .)
+    LOOP            reduce using rule 37 (expr -> expr MULT expr .)
+    OF              reduce using rule 37 (expr -> expr MULT expr .)
+    COMMA           reduce using rule 37 (expr -> expr MULT expr .)
+    RBRACE          reduce using rule 37 (expr -> expr MULT expr .)
+    ELSE            reduce using rule 37 (expr -> expr MULT expr .)
+    POOL            reduce using rule 37 (expr -> expr MULT expr .)
+    FI              reduce using rule 37 (expr -> expr MULT expr .)
+    IN              reduce using rule 37 (expr -> expr MULT expr .)
+    DOT             shift and go to state 54
+    AT              shift and go to state 55
+
+  ! DOT             [ reduce using rule 37 (expr -> expr MULT expr .) ]
+  ! AT              [ reduce using rule 37 (expr -> expr MULT expr .) ]
+  ! PLUS            [ shift and go to state 56 ]
+  ! MINUS           [ shift and go to state 57 ]
+  ! MULT            [ shift and go to state 58 ]
+  ! DIV             [ shift and go to state 59 ]
+  ! LT              [ shift and go to state 60 ]
+  ! LE              [ shift and go to state 61 ]
+  ! EQ              [ shift and go to state 62 ]
+
+
+state 86
+
+    (38) expr -> expr DIV expr .
+    (16) expr -> expr . DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> expr . AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (35) expr -> expr . PLUS expr
+    (36) expr -> expr . MINUS expr
+    (37) expr -> expr . MULT expr
+    (38) expr -> expr . DIV expr
+    (39) expr -> expr . LT expr
+    (40) expr -> expr . LE expr
+    (41) expr -> expr . EQ expr
+
+    PLUS            reduce using rule 38 (expr -> expr DIV expr .)
+    MINUS           reduce using rule 38 (expr -> expr DIV expr .)
+    MULT            reduce using rule 38 (expr -> expr DIV expr .)
+    DIV             reduce using rule 38 (expr -> expr DIV expr .)
+    LT              reduce using rule 38 (expr -> expr DIV expr .)
+    LE              reduce using rule 38 (expr -> expr DIV expr .)
+    EQ              reduce using rule 38 (expr -> expr DIV expr .)
+    SEMICOLON       reduce using rule 38 (expr -> expr DIV expr .)
+    RPAREN          reduce using rule 38 (expr -> expr DIV expr .)
+    THEN            reduce using rule 38 (expr -> expr DIV expr .)
+    LOOP            reduce using rule 38 (expr -> expr DIV expr .)
+    OF              reduce using rule 38 (expr -> expr DIV expr .)
+    COMMA           reduce using rule 38 (expr -> expr DIV expr .)
+    RBRACE          reduce using rule 38 (expr -> expr DIV expr .)
+    ELSE            reduce using rule 38 (expr -> expr DIV expr .)
+    POOL            reduce using rule 38 (expr -> expr DIV expr .)
+    FI              reduce using rule 38 (expr -> expr DIV expr .)
+    IN              reduce using rule 38 (expr -> expr DIV expr .)
+    DOT             shift and go to state 54
+    AT              shift and go to state 55
+
+  ! DOT             [ reduce using rule 38 (expr -> expr DIV expr .) ]
+  ! AT              [ reduce using rule 38 (expr -> expr DIV expr .) ]
+  ! PLUS            [ shift and go to state 56 ]
+  ! MINUS           [ shift and go to state 57 ]
+  ! MULT            [ shift and go to state 58 ]
+  ! DIV             [ shift and go to state 59 ]
+  ! LT              [ shift and go to state 60 ]
+  ! LE              [ shift and go to state 61 ]
+  ! EQ              [ shift and go to state 62 ]
+
+
+state 87
+
+    (39) expr -> expr LT expr .
+    (16) expr -> expr . DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> expr . AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (35) expr -> expr . PLUS expr
+    (36) expr -> expr . MINUS expr
+    (37) expr -> expr . MULT expr
+    (38) expr -> expr . DIV expr
+    (39) expr -> expr . LT expr
+    (40) expr -> expr . LE expr
+    (41) expr -> expr . EQ expr
+
+    LT              reduce using rule 39 (expr -> expr LT expr .)
+    LE              reduce using rule 39 (expr -> expr LT expr .)
+    EQ              reduce using rule 39 (expr -> expr LT expr .)
+    SEMICOLON       reduce using rule 39 (expr -> expr LT expr .)
+    RPAREN          reduce using rule 39 (expr -> expr LT expr .)
+    THEN            reduce using rule 39 (expr -> expr LT expr .)
+    LOOP            reduce using rule 39 (expr -> expr LT expr .)
+    OF              reduce using rule 39 (expr -> expr LT expr .)
+    COMMA           reduce using rule 39 (expr -> expr LT expr .)
+    RBRACE          reduce using rule 39 (expr -> expr LT expr .)
+    ELSE            reduce using rule 39 (expr -> expr LT expr .)
+    POOL            reduce using rule 39 (expr -> expr LT expr .)
+    FI              reduce using rule 39 (expr -> expr LT expr .)
+    IN              reduce using rule 39 (expr -> expr LT expr .)
+    DOT             shift and go to state 54
+    AT              shift and go to state 55
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    MULT            shift and go to state 58
+    DIV             shift and go to state 59
+
+  ! DOT             [ reduce using rule 39 (expr -> expr LT expr .) ]
+  ! AT              [ reduce using rule 39 (expr -> expr LT expr .) ]
+  ! PLUS            [ reduce using rule 39 (expr -> expr LT expr .) ]
+  ! MINUS           [ reduce using rule 39 (expr -> expr LT expr .) ]
+  ! MULT            [ reduce using rule 39 (expr -> expr LT expr .) ]
+  ! DIV             [ reduce using rule 39 (expr -> expr LT expr .) ]
+  ! LT              [ shift and go to state 60 ]
+  ! LE              [ shift and go to state 61 ]
+  ! EQ              [ shift and go to state 62 ]
+
+
+state 88
+
+    (40) expr -> expr LE expr .
+    (16) expr -> expr . DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> expr . AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (35) expr -> expr . PLUS expr
+    (36) expr -> expr . MINUS expr
+    (37) expr -> expr . MULT expr
+    (38) expr -> expr . DIV expr
+    (39) expr -> expr . LT expr
+    (40) expr -> expr . LE expr
+    (41) expr -> expr . EQ expr
+
+    LT              reduce using rule 40 (expr -> expr LE expr .)
+    LE              reduce using rule 40 (expr -> expr LE expr .)
+    EQ              reduce using rule 40 (expr -> expr LE expr .)
+    SEMICOLON       reduce using rule 40 (expr -> expr LE expr .)
+    RPAREN          reduce using rule 40 (expr -> expr LE expr .)
+    THEN            reduce using rule 40 (expr -> expr LE expr .)
+    LOOP            reduce using rule 40 (expr -> expr LE expr .)
+    OF              reduce using rule 40 (expr -> expr LE expr .)
+    COMMA           reduce using rule 40 (expr -> expr LE expr .)
+    RBRACE          reduce using rule 40 (expr -> expr LE expr .)
+    ELSE            reduce using rule 40 (expr -> expr LE expr .)
+    POOL            reduce using rule 40 (expr -> expr LE expr .)
+    FI              reduce using rule 40 (expr -> expr LE expr .)
+    IN              reduce using rule 40 (expr -> expr LE expr .)
+    DOT             shift and go to state 54
+    AT              shift and go to state 55
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    MULT            shift and go to state 58
+    DIV             shift and go to state 59
+
+  ! DOT             [ reduce using rule 40 (expr -> expr LE expr .) ]
+  ! AT              [ reduce using rule 40 (expr -> expr LE expr .) ]
+  ! PLUS            [ reduce using rule 40 (expr -> expr LE expr .) ]
+  ! MINUS           [ reduce using rule 40 (expr -> expr LE expr .) ]
+  ! MULT            [ reduce using rule 40 (expr -> expr LE expr .) ]
+  ! DIV             [ reduce using rule 40 (expr -> expr LE expr .) ]
+  ! LT              [ shift and go to state 60 ]
+  ! LE              [ shift and go to state 61 ]
+  ! EQ              [ shift and go to state 62 ]
+
+
+state 89
+
+    (41) expr -> expr EQ expr .
+    (16) expr -> expr . DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> expr . AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (35) expr -> expr . PLUS expr
+    (36) expr -> expr . MINUS expr
+    (37) expr -> expr . MULT expr
+    (38) expr -> expr . DIV expr
+    (39) expr -> expr . LT expr
+    (40) expr -> expr . LE expr
+    (41) expr -> expr . EQ expr
+
+    LT              reduce using rule 41 (expr -> expr EQ expr .)
+    LE              reduce using rule 41 (expr -> expr EQ expr .)
+    EQ              reduce using rule 41 (expr -> expr EQ expr .)
+    SEMICOLON       reduce using rule 41 (expr -> expr EQ expr .)
+    RPAREN          reduce using rule 41 (expr -> expr EQ expr .)
+    THEN            reduce using rule 41 (expr -> expr EQ expr .)
+    LOOP            reduce using rule 41 (expr -> expr EQ expr .)
+    OF              reduce using rule 41 (expr -> expr EQ expr .)
+    COMMA           reduce using rule 41 (expr -> expr EQ expr .)
+    RBRACE          reduce using rule 41 (expr -> expr EQ expr .)
+    ELSE            reduce using rule 41 (expr -> expr EQ expr .)
+    POOL            reduce using rule 41 (expr -> expr EQ expr .)
+    FI              reduce using rule 41 (expr -> expr EQ expr .)
+    IN              reduce using rule 41 (expr -> expr EQ expr .)
+    DOT             shift and go to state 54
+    AT              shift and go to state 55
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    MULT            shift and go to state 58
+    DIV             shift and go to state 59
+
+  ! DOT             [ reduce using rule 41 (expr -> expr EQ expr .) ]
+  ! AT              [ reduce using rule 41 (expr -> expr EQ expr .) ]
+  ! PLUS            [ reduce using rule 41 (expr -> expr EQ expr .) ]
+  ! MINUS           [ reduce using rule 41 (expr -> expr EQ expr .) ]
+  ! MULT            [ reduce using rule 41 (expr -> expr EQ expr .) ]
+  ! DIV             [ reduce using rule 41 (expr -> expr EQ expr .) ]
+  ! LT              [ shift and go to state 60 ]
+  ! LE              [ shift and go to state 61 ]
+  ! EQ              [ shift and go to state 62 ]
+
+
+state 90
+
+    (44) expr -> LPAREN expr RPAREN .
+
+    DOT             reduce using rule 44 (expr -> LPAREN expr RPAREN .)
+    AT              reduce using rule 44 (expr -> LPAREN expr RPAREN .)
+    PLUS            reduce using rule 44 (expr -> LPAREN expr RPAREN .)
+    MINUS           reduce using rule 44 (expr -> LPAREN expr RPAREN .)
+    MULT            reduce using rule 44 (expr -> LPAREN expr RPAREN .)
+    DIV             reduce using rule 44 (expr -> LPAREN expr RPAREN .)
+    LT              reduce using rule 44 (expr -> LPAREN expr RPAREN .)
+    LE              reduce using rule 44 (expr -> LPAREN expr RPAREN .)
+    EQ              reduce using rule 44 (expr -> LPAREN expr RPAREN .)
+    SEMICOLON       reduce using rule 44 (expr -> LPAREN expr RPAREN .)
+    RPAREN          reduce using rule 44 (expr -> LPAREN expr RPAREN .)
+    THEN            reduce using rule 44 (expr -> LPAREN expr RPAREN .)
+    LOOP            reduce using rule 44 (expr -> LPAREN expr RPAREN .)
+    OF              reduce using rule 44 (expr -> LPAREN expr RPAREN .)
+    COMMA           reduce using rule 44 (expr -> LPAREN expr RPAREN .)
+    RBRACE          reduce using rule 44 (expr -> LPAREN expr RPAREN .)
+    ELSE            reduce using rule 44 (expr -> LPAREN expr RPAREN .)
+    POOL            reduce using rule 44 (expr -> LPAREN expr RPAREN .)
+    FI              reduce using rule 44 (expr -> LPAREN expr RPAREN .)
+    IN              reduce using rule 44 (expr -> LPAREN expr RPAREN .)
+
+
+state 91
+
+    (19) expr -> IF expr THEN . expr ELSE expr FI
+    (15) expr -> . OBJECTID ASSIGN expr
+    (16) expr -> . expr DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> . expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (18) expr -> . OBJECTID LPAREN arg_list RPAREN
+    (19) expr -> . IF expr THEN expr ELSE expr FI
+    (20) expr -> . WHILE expr LOOP expr POOL
+    (21) expr -> . LBRACE expr_list RBRACE
+    (24) expr -> . LET let_bindings IN expr
+    (29) expr -> . CASE expr OF case_list ESAC
+    (33) expr -> . NEW TYPEID
+    (34) expr -> . ISVOID expr
+    (35) expr -> . expr PLUS expr
+    (36) expr -> . expr MINUS expr
+    (37) expr -> . expr MULT expr
+    (38) expr -> . expr DIV expr
+    (39) expr -> . expr LT expr
+    (40) expr -> . expr LE expr
+    (41) expr -> . expr EQ expr
+    (42) expr -> . NOT expr
+    (43) expr -> . TILDE expr
+    (44) expr -> . LPAREN expr RPAREN
+    (45) expr -> . OBJECTID
+    (46) expr -> . INT_CONST
+    (47) expr -> . STR_CONST
+    (48) expr -> . BOOL_CONST
+    (49) expr -> . SELF
+
+    OBJECTID        shift and go to state 35
+    IF              shift and go to state 38
+    WHILE           shift and go to state 39
+    LBRACE          shift and go to state 40
+    LET             shift and go to state 41
+    CASE            shift and go to state 42
+    NEW             shift and go to state 43
+    ISVOID          shift and go to state 44
+    NOT             shift and go to state 45
+    TILDE           shift and go to state 46
+    LPAREN          shift and go to state 37
+    INT_CONST       shift and go to state 47
+    STR_CONST       shift and go to state 48
+    BOOL_CONST      shift and go to state 49
+    SELF            shift and go to state 50
+
+    expr                           shift and go to state 105
+
+state 92
+
+    (20) expr -> WHILE expr LOOP . expr POOL
+    (15) expr -> . OBJECTID ASSIGN expr
+    (16) expr -> . expr DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> . expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (18) expr -> . OBJECTID LPAREN arg_list RPAREN
+    (19) expr -> . IF expr THEN expr ELSE expr FI
+    (20) expr -> . WHILE expr LOOP expr POOL
+    (21) expr -> . LBRACE expr_list RBRACE
+    (24) expr -> . LET let_bindings IN expr
+    (29) expr -> . CASE expr OF case_list ESAC
+    (33) expr -> . NEW TYPEID
+    (34) expr -> . ISVOID expr
+    (35) expr -> . expr PLUS expr
+    (36) expr -> . expr MINUS expr
+    (37) expr -> . expr MULT expr
+    (38) expr -> . expr DIV expr
+    (39) expr -> . expr LT expr
+    (40) expr -> . expr LE expr
+    (41) expr -> . expr EQ expr
+    (42) expr -> . NOT expr
+    (43) expr -> . TILDE expr
+    (44) expr -> . LPAREN expr RPAREN
+    (45) expr -> . OBJECTID
+    (46) expr -> . INT_CONST
+    (47) expr -> . STR_CONST
+    (48) expr -> . BOOL_CONST
+    (49) expr -> . SELF
+
+    OBJECTID        shift and go to state 35
+    IF              shift and go to state 38
+    WHILE           shift and go to state 39
+    LBRACE          shift and go to state 40
+    LET             shift and go to state 41
+    CASE            shift and go to state 42
+    NEW             shift and go to state 43
+    ISVOID          shift and go to state 44
+    NOT             shift and go to state 45
+    TILDE           shift and go to state 46
+    LPAREN          shift and go to state 37
+    INT_CONST       shift and go to state 47
+    STR_CONST       shift and go to state 48
+    BOOL_CONST      shift and go to state 49
+    SELF            shift and go to state 50
+
+    expr                           shift and go to state 106
+
+state 93
+
+    (21) expr -> LBRACE expr_list RBRACE .
+
+    DOT             reduce using rule 21 (expr -> LBRACE expr_list RBRACE .)
+    AT              reduce using rule 21 (expr -> LBRACE expr_list RBRACE .)
+    PLUS            reduce using rule 21 (expr -> LBRACE expr_list RBRACE .)
+    MINUS           reduce using rule 21 (expr -> LBRACE expr_list RBRACE .)
+    MULT            reduce using rule 21 (expr -> LBRACE expr_list RBRACE .)
+    DIV             reduce using rule 21 (expr -> LBRACE expr_list RBRACE .)
+    LT              reduce using rule 21 (expr -> LBRACE expr_list RBRACE .)
+    LE              reduce using rule 21 (expr -> LBRACE expr_list RBRACE .)
+    EQ              reduce using rule 21 (expr -> LBRACE expr_list RBRACE .)
+    SEMICOLON       reduce using rule 21 (expr -> LBRACE expr_list RBRACE .)
+    RPAREN          reduce using rule 21 (expr -> LBRACE expr_list RBRACE .)
+    THEN            reduce using rule 21 (expr -> LBRACE expr_list RBRACE .)
+    LOOP            reduce using rule 21 (expr -> LBRACE expr_list RBRACE .)
+    OF              reduce using rule 21 (expr -> LBRACE expr_list RBRACE .)
+    COMMA           reduce using rule 21 (expr -> LBRACE expr_list RBRACE .)
+    RBRACE          reduce using rule 21 (expr -> LBRACE expr_list RBRACE .)
+    ELSE            reduce using rule 21 (expr -> LBRACE expr_list RBRACE .)
+    POOL            reduce using rule 21 (expr -> LBRACE expr_list RBRACE .)
+    FI              reduce using rule 21 (expr -> LBRACE expr_list RBRACE .)
+    IN              reduce using rule 21 (expr -> LBRACE expr_list RBRACE .)
+
+
+state 94
+
+    (22) expr_list -> expr_list expr . SEMICOLON
+    (16) expr -> expr . DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> expr . AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (35) expr -> expr . PLUS expr
+    (36) expr -> expr . MINUS expr
+    (37) expr -> expr . MULT expr
+    (38) expr -> expr . DIV expr
+    (39) expr -> expr . LT expr
+    (40) expr -> expr . LE expr
+    (41) expr -> expr . EQ expr
+
+    SEMICOLON       shift and go to state 107
+    DOT             shift and go to state 54
+    AT              shift and go to state 55
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    MULT            shift and go to state 58
+    DIV             shift and go to state 59
+    LT              shift and go to state 60
+    LE              shift and go to state 61
+    EQ              shift and go to state 62
+
+
+state 95
+
+    (23) expr_list -> expr SEMICOLON .
+
+    RBRACE          reduce using rule 23 (expr_list -> expr SEMICOLON .)
+    OBJECTID        reduce using rule 23 (expr_list -> expr SEMICOLON .)
+    IF              reduce using rule 23 (expr_list -> expr SEMICOLON .)
+    WHILE           reduce using rule 23 (expr_list -> expr SEMICOLON .)
+    LBRACE          reduce using rule 23 (expr_list -> expr SEMICOLON .)
+    LET             reduce using rule 23 (expr_list -> expr SEMICOLON .)
+    CASE            reduce using rule 23 (expr_list -> expr SEMICOLON .)
+    NEW             reduce using rule 23 (expr_list -> expr SEMICOLON .)
+    ISVOID          reduce using rule 23 (expr_list -> expr SEMICOLON .)
+    NOT             reduce using rule 23 (expr_list -> expr SEMICOLON .)
+    TILDE           reduce using rule 23 (expr_list -> expr SEMICOLON .)
+    LPAREN          reduce using rule 23 (expr_list -> expr SEMICOLON .)
+    INT_CONST       reduce using rule 23 (expr_list -> expr SEMICOLON .)
+    STR_CONST       reduce using rule 23 (expr_list -> expr SEMICOLON .)
+    BOOL_CONST      reduce using rule 23 (expr_list -> expr SEMICOLON .)
+    SELF            reduce using rule 23 (expr_list -> expr SEMICOLON .)
+
+
+state 96
+
+    (24) expr -> LET let_bindings IN . expr
+    (15) expr -> . OBJECTID ASSIGN expr
+    (16) expr -> . expr DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> . expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (18) expr -> . OBJECTID LPAREN arg_list RPAREN
+    (19) expr -> . IF expr THEN expr ELSE expr FI
+    (20) expr -> . WHILE expr LOOP expr POOL
+    (21) expr -> . LBRACE expr_list RBRACE
+    (24) expr -> . LET let_bindings IN expr
+    (29) expr -> . CASE expr OF case_list ESAC
+    (33) expr -> . NEW TYPEID
+    (34) expr -> . ISVOID expr
+    (35) expr -> . expr PLUS expr
+    (36) expr -> . expr MINUS expr
+    (37) expr -> . expr MULT expr
+    (38) expr -> . expr DIV expr
+    (39) expr -> . expr LT expr
+    (40) expr -> . expr LE expr
+    (41) expr -> . expr EQ expr
+    (42) expr -> . NOT expr
+    (43) expr -> . TILDE expr
+    (44) expr -> . LPAREN expr RPAREN
+    (45) expr -> . OBJECTID
+    (46) expr -> . INT_CONST
+    (47) expr -> . STR_CONST
+    (48) expr -> . BOOL_CONST
+    (49) expr -> . SELF
+
+    OBJECTID        shift and go to state 35
+    IF              shift and go to state 38
+    WHILE           shift and go to state 39
+    LBRACE          shift and go to state 40
+    LET             shift and go to state 41
+    CASE            shift and go to state 42
+    NEW             shift and go to state 43
+    ISVOID          shift and go to state 44
+    NOT             shift and go to state 45
+    TILDE           shift and go to state 46
+    LPAREN          shift and go to state 37
+    INT_CONST       shift and go to state 47
+    STR_CONST       shift and go to state 48
+    BOOL_CONST      shift and go to state 49
+    SELF            shift and go to state 50
+
+    expr                           shift and go to state 108
+
+state 97
+
+    (25) let_bindings -> let_bindings COMMA . let_binding
+    (27) let_binding -> . OBJECTID COLON TYPEID ASSIGN expr
+    (28) let_binding -> . OBJECTID COLON TYPEID
+
+    OBJECTID        shift and go to state 70
+
+    let_binding                    shift and go to state 109
+
+state 98
+
+    (27) let_binding -> OBJECTID COLON . TYPEID ASSIGN expr
+    (28) let_binding -> OBJECTID COLON . TYPEID
+
+    TYPEID          shift and go to state 110
+
+
+state 99
+
+    (29) expr -> CASE expr OF . case_list ESAC
+    (30) case_list -> . case_list case_branch
+    (31) case_list -> . case_branch
+    (32) case_branch -> . OBJECTID COLON TYPEID DARROW expr SEMICOLON
+
+    OBJECTID        shift and go to state 113
+
+    case_list                      shift and go to state 111
+    case_branch                    shift and go to state 112
+
+state 100
+
+    (8) feature -> OBJECTID LPAREN param_list RPAREN COLON TYPEID LBRACE expr . RBRACE
+    (16) expr -> expr . DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> expr . AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (35) expr -> expr . PLUS expr
+    (36) expr -> expr . MINUS expr
+    (37) expr -> expr . MULT expr
+    (38) expr -> expr . DIV expr
+    (39) expr -> expr . LT expr
+    (40) expr -> expr . LE expr
+    (41) expr -> expr . EQ expr
+
+    RBRACE          shift and go to state 114
+    DOT             shift and go to state 54
+    AT              shift and go to state 55
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    MULT            shift and go to state 58
+    DIV             shift and go to state 59
+    LT              shift and go to state 60
+    LE              shift and go to state 61
+    EQ              shift and go to state 62
+
+
+state 101
+
+    (18) expr -> OBJECTID LPAREN arg_list RPAREN .
+
+    DOT             reduce using rule 18 (expr -> OBJECTID LPAREN arg_list RPAREN .)
+    AT              reduce using rule 18 (expr -> OBJECTID LPAREN arg_list RPAREN .)
+    PLUS            reduce using rule 18 (expr -> OBJECTID LPAREN arg_list RPAREN .)
+    MINUS           reduce using rule 18 (expr -> OBJECTID LPAREN arg_list RPAREN .)
+    MULT            reduce using rule 18 (expr -> OBJECTID LPAREN arg_list RPAREN .)
+    DIV             reduce using rule 18 (expr -> OBJECTID LPAREN arg_list RPAREN .)
+    LT              reduce using rule 18 (expr -> OBJECTID LPAREN arg_list RPAREN .)
+    LE              reduce using rule 18 (expr -> OBJECTID LPAREN arg_list RPAREN .)
+    EQ              reduce using rule 18 (expr -> OBJECTID LPAREN arg_list RPAREN .)
+    SEMICOLON       reduce using rule 18 (expr -> OBJECTID LPAREN arg_list RPAREN .)
+    RPAREN          reduce using rule 18 (expr -> OBJECTID LPAREN arg_list RPAREN .)
+    THEN            reduce using rule 18 (expr -> OBJECTID LPAREN arg_list RPAREN .)
+    LOOP            reduce using rule 18 (expr -> OBJECTID LPAREN arg_list RPAREN .)
+    OF              reduce using rule 18 (expr -> OBJECTID LPAREN arg_list RPAREN .)
+    COMMA           reduce using rule 18 (expr -> OBJECTID LPAREN arg_list RPAREN .)
+    RBRACE          reduce using rule 18 (expr -> OBJECTID LPAREN arg_list RPAREN .)
+    ELSE            reduce using rule 18 (expr -> OBJECTID LPAREN arg_list RPAREN .)
+    POOL            reduce using rule 18 (expr -> OBJECTID LPAREN arg_list RPAREN .)
+    FI              reduce using rule 18 (expr -> OBJECTID LPAREN arg_list RPAREN .)
+    IN              reduce using rule 18 (expr -> OBJECTID LPAREN arg_list RPAREN .)
+
+
+state 102
+
+    (50) arg_list -> arg_list COMMA . expr
+    (15) expr -> . OBJECTID ASSIGN expr
+    (16) expr -> . expr DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> . expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (18) expr -> . OBJECTID LPAREN arg_list RPAREN
+    (19) expr -> . IF expr THEN expr ELSE expr FI
+    (20) expr -> . WHILE expr LOOP expr POOL
+    (21) expr -> . LBRACE expr_list RBRACE
+    (24) expr -> . LET let_bindings IN expr
+    (29) expr -> . CASE expr OF case_list ESAC
+    (33) expr -> . NEW TYPEID
+    (34) expr -> . ISVOID expr
+    (35) expr -> . expr PLUS expr
+    (36) expr -> . expr MINUS expr
+    (37) expr -> . expr MULT expr
+    (38) expr -> . expr DIV expr
+    (39) expr -> . expr LT expr
+    (40) expr -> . expr LE expr
+    (41) expr -> . expr EQ expr
+    (42) expr -> . NOT expr
+    (43) expr -> . TILDE expr
+    (44) expr -> . LPAREN expr RPAREN
+    (45) expr -> . OBJECTID
+    (46) expr -> . INT_CONST
+    (47) expr -> . STR_CONST
+    (48) expr -> . BOOL_CONST
+    (49) expr -> . SELF
+
+    OBJECTID        shift and go to state 35
+    IF              shift and go to state 38
+    WHILE           shift and go to state 39
+    LBRACE          shift and go to state 40
+    LET             shift and go to state 41
+    CASE            shift and go to state 42
+    NEW             shift and go to state 43
+    ISVOID          shift and go to state 44
+    NOT             shift and go to state 45
+    TILDE           shift and go to state 46
+    LPAREN          shift and go to state 37
+    INT_CONST       shift and go to state 47
+    STR_CONST       shift and go to state 48
+    BOOL_CONST      shift and go to state 49
+    SELF            shift and go to state 50
+
+    expr                           shift and go to state 115
+
+state 103
+
+    (16) expr -> expr DOT OBJECTID LPAREN . arg_list RPAREN
+    (50) arg_list -> . arg_list COMMA expr
+    (51) arg_list -> . expr
+    (52) arg_list -> . empty
+    (15) expr -> . OBJECTID ASSIGN expr
+    (16) expr -> . expr DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> . expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (18) expr -> . OBJECTID LPAREN arg_list RPAREN
+    (19) expr -> . IF expr THEN expr ELSE expr FI
+    (20) expr -> . WHILE expr LOOP expr POOL
+    (21) expr -> . LBRACE expr_list RBRACE
+    (24) expr -> . LET let_bindings IN expr
+    (29) expr -> . CASE expr OF case_list ESAC
+    (33) expr -> . NEW TYPEID
+    (34) expr -> . ISVOID expr
+    (35) expr -> . expr PLUS expr
+    (36) expr -> . expr MINUS expr
+    (37) expr -> . expr MULT expr
+    (38) expr -> . expr DIV expr
+    (39) expr -> . expr LT expr
+    (40) expr -> . expr LE expr
+    (41) expr -> . expr EQ expr
+    (42) expr -> . NOT expr
+    (43) expr -> . TILDE expr
+    (44) expr -> . LPAREN expr RPAREN
+    (45) expr -> . OBJECTID
+    (46) expr -> . INT_CONST
+    (47) expr -> . STR_CONST
+    (48) expr -> . BOOL_CONST
+    (49) expr -> . SELF
+    (53) empty -> .
+
+    OBJECTID        shift and go to state 35
+    IF              shift and go to state 38
+    WHILE           shift and go to state 39
+    LBRACE          shift and go to state 40
+    LET             shift and go to state 41
+    CASE            shift and go to state 42
+    NEW             shift and go to state 43
+    ISVOID          shift and go to state 44
+    NOT             shift and go to state 45
+    TILDE           shift and go to state 46
+    LPAREN          shift and go to state 37
+    INT_CONST       shift and go to state 47
+    STR_CONST       shift and go to state 48
+    BOOL_CONST      shift and go to state 49
+    SELF            shift and go to state 50
+    RPAREN          reduce using rule 53 (empty -> .)
+    COMMA           reduce using rule 53 (empty -> .)
+
+    expr                           shift and go to state 79
+    arg_list                       shift and go to state 116
+    empty                          shift and go to state 80
+
+state 104
+
+    (17) expr -> expr AT TYPEID DOT . OBJECTID LPAREN arg_list RPAREN
+
+    OBJECTID        shift and go to state 117
+
+
+state 105
+
+    (19) expr -> IF expr THEN expr . ELSE expr FI
+    (16) expr -> expr . DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> expr . AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (35) expr -> expr . PLUS expr
+    (36) expr -> expr . MINUS expr
+    (37) expr -> expr . MULT expr
+    (38) expr -> expr . DIV expr
+    (39) expr -> expr . LT expr
+    (40) expr -> expr . LE expr
+    (41) expr -> expr . EQ expr
+
+    ELSE            shift and go to state 118
+    DOT             shift and go to state 54
+    AT              shift and go to state 55
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    MULT            shift and go to state 58
+    DIV             shift and go to state 59
+    LT              shift and go to state 60
+    LE              shift and go to state 61
+    EQ              shift and go to state 62
+
+
+state 106
+
+    (20) expr -> WHILE expr LOOP expr . POOL
+    (16) expr -> expr . DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> expr . AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (35) expr -> expr . PLUS expr
+    (36) expr -> expr . MINUS expr
+    (37) expr -> expr . MULT expr
+    (38) expr -> expr . DIV expr
+    (39) expr -> expr . LT expr
+    (40) expr -> expr . LE expr
+    (41) expr -> expr . EQ expr
+
+    POOL            shift and go to state 119
+    DOT             shift and go to state 54
+    AT              shift and go to state 55
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    MULT            shift and go to state 58
+    DIV             shift and go to state 59
+    LT              shift and go to state 60
+    LE              shift and go to state 61
+    EQ              shift and go to state 62
+
+
+state 107
+
+    (22) expr_list -> expr_list expr SEMICOLON .
+
+    RBRACE          reduce using rule 22 (expr_list -> expr_list expr SEMICOLON .)
+    OBJECTID        reduce using rule 22 (expr_list -> expr_list expr SEMICOLON .)
+    IF              reduce using rule 22 (expr_list -> expr_list expr SEMICOLON .)
+    WHILE           reduce using rule 22 (expr_list -> expr_list expr SEMICOLON .)
+    LBRACE          reduce using rule 22 (expr_list -> expr_list expr SEMICOLON .)
+    LET             reduce using rule 22 (expr_list -> expr_list expr SEMICOLON .)
+    CASE            reduce using rule 22 (expr_list -> expr_list expr SEMICOLON .)
+    NEW             reduce using rule 22 (expr_list -> expr_list expr SEMICOLON .)
+    ISVOID          reduce using rule 22 (expr_list -> expr_list expr SEMICOLON .)
+    NOT             reduce using rule 22 (expr_list -> expr_list expr SEMICOLON .)
+    TILDE           reduce using rule 22 (expr_list -> expr_list expr SEMICOLON .)
+    LPAREN          reduce using rule 22 (expr_list -> expr_list expr SEMICOLON .)
+    INT_CONST       reduce using rule 22 (expr_list -> expr_list expr SEMICOLON .)
+    STR_CONST       reduce using rule 22 (expr_list -> expr_list expr SEMICOLON .)
+    BOOL_CONST      reduce using rule 22 (expr_list -> expr_list expr SEMICOLON .)
+    SELF            reduce using rule 22 (expr_list -> expr_list expr SEMICOLON .)
+
+
+state 108
+
+    (24) expr -> LET let_bindings IN expr .
+    (16) expr -> expr . DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> expr . AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (35) expr -> expr . PLUS expr
+    (36) expr -> expr . MINUS expr
+    (37) expr -> expr . MULT expr
+    (38) expr -> expr . DIV expr
+    (39) expr -> expr . LT expr
+    (40) expr -> expr . LE expr
+    (41) expr -> expr . EQ expr
+
+  ! shift/reduce conflict for DOT resolved as shift
+  ! shift/reduce conflict for AT resolved as shift
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for MULT resolved as shift
+  ! shift/reduce conflict for DIV resolved as shift
+  ! shift/reduce conflict for LT resolved as shift
+  ! shift/reduce conflict for LE resolved as shift
+  ! shift/reduce conflict for EQ resolved as shift
+    SEMICOLON       reduce using rule 24 (expr -> LET let_bindings IN expr .)
+    RPAREN          reduce using rule 24 (expr -> LET let_bindings IN expr .)
+    THEN            reduce using rule 24 (expr -> LET let_bindings IN expr .)
+    LOOP            reduce using rule 24 (expr -> LET let_bindings IN expr .)
+    OF              reduce using rule 24 (expr -> LET let_bindings IN expr .)
+    COMMA           reduce using rule 24 (expr -> LET let_bindings IN expr .)
+    RBRACE          reduce using rule 24 (expr -> LET let_bindings IN expr .)
+    ELSE            reduce using rule 24 (expr -> LET let_bindings IN expr .)
+    POOL            reduce using rule 24 (expr -> LET let_bindings IN expr .)
+    FI              reduce using rule 24 (expr -> LET let_bindings IN expr .)
+    IN              reduce using rule 24 (expr -> LET let_bindings IN expr .)
+    DOT             shift and go to state 54
+    AT              shift and go to state 55
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    MULT            shift and go to state 58
+    DIV             shift and go to state 59
+    LT              shift and go to state 60
+    LE              shift and go to state 61
+    EQ              shift and go to state 62
+
+  ! DOT             [ reduce using rule 24 (expr -> LET let_bindings IN expr .) ]
+  ! AT              [ reduce using rule 24 (expr -> LET let_bindings IN expr .) ]
+  ! PLUS            [ reduce using rule 24 (expr -> LET let_bindings IN expr .) ]
+  ! MINUS           [ reduce using rule 24 (expr -> LET let_bindings IN expr .) ]
+  ! MULT            [ reduce using rule 24 (expr -> LET let_bindings IN expr .) ]
+  ! DIV             [ reduce using rule 24 (expr -> LET let_bindings IN expr .) ]
+  ! LT              [ reduce using rule 24 (expr -> LET let_bindings IN expr .) ]
+  ! LE              [ reduce using rule 24 (expr -> LET let_bindings IN expr .) ]
+  ! EQ              [ reduce using rule 24 (expr -> LET let_bindings IN expr .) ]
+
+
+state 109
+
+    (25) let_bindings -> let_bindings COMMA let_binding .
+
+    IN              reduce using rule 25 (let_bindings -> let_bindings COMMA let_binding .)
+    COMMA           reduce using rule 25 (let_bindings -> let_bindings COMMA let_binding .)
+
+
+state 110
+
+    (27) let_binding -> OBJECTID COLON TYPEID . ASSIGN expr
+    (28) let_binding -> OBJECTID COLON TYPEID .
+
+    ASSIGN          shift and go to state 120
+    IN              reduce using rule 28 (let_binding -> OBJECTID COLON TYPEID .)
+    COMMA           reduce using rule 28 (let_binding -> OBJECTID COLON TYPEID .)
+
+
+state 111
+
+    (29) expr -> CASE expr OF case_list . ESAC
+    (30) case_list -> case_list . case_branch
+    (32) case_branch -> . OBJECTID COLON TYPEID DARROW expr SEMICOLON
+
+    ESAC            shift and go to state 121
+    OBJECTID        shift and go to state 113
+
+    case_branch                    shift and go to state 122
+
+state 112
+
+    (31) case_list -> case_branch .
+
+    ESAC            reduce using rule 31 (case_list -> case_branch .)
+    OBJECTID        reduce using rule 31 (case_list -> case_branch .)
+
+
+state 113
+
+    (32) case_branch -> OBJECTID . COLON TYPEID DARROW expr SEMICOLON
+
+    COLON           shift and go to state 123
+
+
+state 114
+
+    (8) feature -> OBJECTID LPAREN param_list RPAREN COLON TYPEID LBRACE expr RBRACE .
+
+    SEMICOLON       reduce using rule 8 (feature -> OBJECTID LPAREN param_list RPAREN COLON TYPEID LBRACE expr RBRACE .)
+
+
+state 115
+
+    (50) arg_list -> arg_list COMMA expr .
+    (16) expr -> expr . DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> expr . AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (35) expr -> expr . PLUS expr
+    (36) expr -> expr . MINUS expr
+    (37) expr -> expr . MULT expr
+    (38) expr -> expr . DIV expr
+    (39) expr -> expr . LT expr
+    (40) expr -> expr . LE expr
+    (41) expr -> expr . EQ expr
+
+    RPAREN          reduce using rule 50 (arg_list -> arg_list COMMA expr .)
+    COMMA           reduce using rule 50 (arg_list -> arg_list COMMA expr .)
+    DOT             shift and go to state 54
+    AT              shift and go to state 55
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    MULT            shift and go to state 58
+    DIV             shift and go to state 59
+    LT              shift and go to state 60
+    LE              shift and go to state 61
+    EQ              shift and go to state 62
+
+
+state 116
+
+    (16) expr -> expr DOT OBJECTID LPAREN arg_list . RPAREN
+    (50) arg_list -> arg_list . COMMA expr
+
+    RPAREN          shift and go to state 124
+    COMMA           shift and go to state 102
+
+
+state 117
+
+    (17) expr -> expr AT TYPEID DOT OBJECTID . LPAREN arg_list RPAREN
+
+    LPAREN          shift and go to state 125
+
+
+state 118
+
+    (19) expr -> IF expr THEN expr ELSE . expr FI
+    (15) expr -> . OBJECTID ASSIGN expr
+    (16) expr -> . expr DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> . expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (18) expr -> . OBJECTID LPAREN arg_list RPAREN
+    (19) expr -> . IF expr THEN expr ELSE expr FI
+    (20) expr -> . WHILE expr LOOP expr POOL
+    (21) expr -> . LBRACE expr_list RBRACE
+    (24) expr -> . LET let_bindings IN expr
+    (29) expr -> . CASE expr OF case_list ESAC
+    (33) expr -> . NEW TYPEID
+    (34) expr -> . ISVOID expr
+    (35) expr -> . expr PLUS expr
+    (36) expr -> . expr MINUS expr
+    (37) expr -> . expr MULT expr
+    (38) expr -> . expr DIV expr
+    (39) expr -> . expr LT expr
+    (40) expr -> . expr LE expr
+    (41) expr -> . expr EQ expr
+    (42) expr -> . NOT expr
+    (43) expr -> . TILDE expr
+    (44) expr -> . LPAREN expr RPAREN
+    (45) expr -> . OBJECTID
+    (46) expr -> . INT_CONST
+    (47) expr -> . STR_CONST
+    (48) expr -> . BOOL_CONST
+    (49) expr -> . SELF
+
+    OBJECTID        shift and go to state 35
+    IF              shift and go to state 38
+    WHILE           shift and go to state 39
+    LBRACE          shift and go to state 40
+    LET             shift and go to state 41
+    CASE            shift and go to state 42
+    NEW             shift and go to state 43
+    ISVOID          shift and go to state 44
+    NOT             shift and go to state 45
+    TILDE           shift and go to state 46
+    LPAREN          shift and go to state 37
+    INT_CONST       shift and go to state 47
+    STR_CONST       shift and go to state 48
+    BOOL_CONST      shift and go to state 49
+    SELF            shift and go to state 50
+
+    expr                           shift and go to state 126
+
+state 119
+
+    (20) expr -> WHILE expr LOOP expr POOL .
+
+    DOT             reduce using rule 20 (expr -> WHILE expr LOOP expr POOL .)
+    AT              reduce using rule 20 (expr -> WHILE expr LOOP expr POOL .)
+    PLUS            reduce using rule 20 (expr -> WHILE expr LOOP expr POOL .)
+    MINUS           reduce using rule 20 (expr -> WHILE expr LOOP expr POOL .)
+    MULT            reduce using rule 20 (expr -> WHILE expr LOOP expr POOL .)
+    DIV             reduce using rule 20 (expr -> WHILE expr LOOP expr POOL .)
+    LT              reduce using rule 20 (expr -> WHILE expr LOOP expr POOL .)
+    LE              reduce using rule 20 (expr -> WHILE expr LOOP expr POOL .)
+    EQ              reduce using rule 20 (expr -> WHILE expr LOOP expr POOL .)
+    SEMICOLON       reduce using rule 20 (expr -> WHILE expr LOOP expr POOL .)
+    RPAREN          reduce using rule 20 (expr -> WHILE expr LOOP expr POOL .)
+    THEN            reduce using rule 20 (expr -> WHILE expr LOOP expr POOL .)
+    LOOP            reduce using rule 20 (expr -> WHILE expr LOOP expr POOL .)
+    OF              reduce using rule 20 (expr -> WHILE expr LOOP expr POOL .)
+    COMMA           reduce using rule 20 (expr -> WHILE expr LOOP expr POOL .)
+    RBRACE          reduce using rule 20 (expr -> WHILE expr LOOP expr POOL .)
+    ELSE            reduce using rule 20 (expr -> WHILE expr LOOP expr POOL .)
+    POOL            reduce using rule 20 (expr -> WHILE expr LOOP expr POOL .)
+    FI              reduce using rule 20 (expr -> WHILE expr LOOP expr POOL .)
+    IN              reduce using rule 20 (expr -> WHILE expr LOOP expr POOL .)
+
+
+state 120
+
+    (27) let_binding -> OBJECTID COLON TYPEID ASSIGN . expr
+    (15) expr -> . OBJECTID ASSIGN expr
+    (16) expr -> . expr DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> . expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (18) expr -> . OBJECTID LPAREN arg_list RPAREN
+    (19) expr -> . IF expr THEN expr ELSE expr FI
+    (20) expr -> . WHILE expr LOOP expr POOL
+    (21) expr -> . LBRACE expr_list RBRACE
+    (24) expr -> . LET let_bindings IN expr
+    (29) expr -> . CASE expr OF case_list ESAC
+    (33) expr -> . NEW TYPEID
+    (34) expr -> . ISVOID expr
+    (35) expr -> . expr PLUS expr
+    (36) expr -> . expr MINUS expr
+    (37) expr -> . expr MULT expr
+    (38) expr -> . expr DIV expr
+    (39) expr -> . expr LT expr
+    (40) expr -> . expr LE expr
+    (41) expr -> . expr EQ expr
+    (42) expr -> . NOT expr
+    (43) expr -> . TILDE expr
+    (44) expr -> . LPAREN expr RPAREN
+    (45) expr -> . OBJECTID
+    (46) expr -> . INT_CONST
+    (47) expr -> . STR_CONST
+    (48) expr -> . BOOL_CONST
+    (49) expr -> . SELF
+
+    OBJECTID        shift and go to state 35
+    IF              shift and go to state 38
+    WHILE           shift and go to state 39
+    LBRACE          shift and go to state 40
+    LET             shift and go to state 41
+    CASE            shift and go to state 42
+    NEW             shift and go to state 43
+    ISVOID          shift and go to state 44
+    NOT             shift and go to state 45
+    TILDE           shift and go to state 46
+    LPAREN          shift and go to state 37
+    INT_CONST       shift and go to state 47
+    STR_CONST       shift and go to state 48
+    BOOL_CONST      shift and go to state 49
+    SELF            shift and go to state 50
+
+    expr                           shift and go to state 127
+
+state 121
+
+    (29) expr -> CASE expr OF case_list ESAC .
+
+    DOT             reduce using rule 29 (expr -> CASE expr OF case_list ESAC .)
+    AT              reduce using rule 29 (expr -> CASE expr OF case_list ESAC .)
+    PLUS            reduce using rule 29 (expr -> CASE expr OF case_list ESAC .)
+    MINUS           reduce using rule 29 (expr -> CASE expr OF case_list ESAC .)
+    MULT            reduce using rule 29 (expr -> CASE expr OF case_list ESAC .)
+    DIV             reduce using rule 29 (expr -> CASE expr OF case_list ESAC .)
+    LT              reduce using rule 29 (expr -> CASE expr OF case_list ESAC .)
+    LE              reduce using rule 29 (expr -> CASE expr OF case_list ESAC .)
+    EQ              reduce using rule 29 (expr -> CASE expr OF case_list ESAC .)
+    SEMICOLON       reduce using rule 29 (expr -> CASE expr OF case_list ESAC .)
+    RPAREN          reduce using rule 29 (expr -> CASE expr OF case_list ESAC .)
+    THEN            reduce using rule 29 (expr -> CASE expr OF case_list ESAC .)
+    LOOP            reduce using rule 29 (expr -> CASE expr OF case_list ESAC .)
+    OF              reduce using rule 29 (expr -> CASE expr OF case_list ESAC .)
+    COMMA           reduce using rule 29 (expr -> CASE expr OF case_list ESAC .)
+    RBRACE          reduce using rule 29 (expr -> CASE expr OF case_list ESAC .)
+    ELSE            reduce using rule 29 (expr -> CASE expr OF case_list ESAC .)
+    POOL            reduce using rule 29 (expr -> CASE expr OF case_list ESAC .)
+    FI              reduce using rule 29 (expr -> CASE expr OF case_list ESAC .)
+    IN              reduce using rule 29 (expr -> CASE expr OF case_list ESAC .)
+
+
+state 122
+
+    (30) case_list -> case_list case_branch .
+
+    ESAC            reduce using rule 30 (case_list -> case_list case_branch .)
+    OBJECTID        reduce using rule 30 (case_list -> case_list case_branch .)
+
+
+state 123
+
+    (32) case_branch -> OBJECTID COLON . TYPEID DARROW expr SEMICOLON
+
+    TYPEID          shift and go to state 128
+
+
+state 124
+
+    (16) expr -> expr DOT OBJECTID LPAREN arg_list RPAREN .
+
+    DOT             reduce using rule 16 (expr -> expr DOT OBJECTID LPAREN arg_list RPAREN .)
+    AT              reduce using rule 16 (expr -> expr DOT OBJECTID LPAREN arg_list RPAREN .)
+    PLUS            reduce using rule 16 (expr -> expr DOT OBJECTID LPAREN arg_list RPAREN .)
+    MINUS           reduce using rule 16 (expr -> expr DOT OBJECTID LPAREN arg_list RPAREN .)
+    MULT            reduce using rule 16 (expr -> expr DOT OBJECTID LPAREN arg_list RPAREN .)
+    DIV             reduce using rule 16 (expr -> expr DOT OBJECTID LPAREN arg_list RPAREN .)
+    LT              reduce using rule 16 (expr -> expr DOT OBJECTID LPAREN arg_list RPAREN .)
+    LE              reduce using rule 16 (expr -> expr DOT OBJECTID LPAREN arg_list RPAREN .)
+    EQ              reduce using rule 16 (expr -> expr DOT OBJECTID LPAREN arg_list RPAREN .)
+    SEMICOLON       reduce using rule 16 (expr -> expr DOT OBJECTID LPAREN arg_list RPAREN .)
+    RPAREN          reduce using rule 16 (expr -> expr DOT OBJECTID LPAREN arg_list RPAREN .)
+    THEN            reduce using rule 16 (expr -> expr DOT OBJECTID LPAREN arg_list RPAREN .)
+    LOOP            reduce using rule 16 (expr -> expr DOT OBJECTID LPAREN arg_list RPAREN .)
+    OF              reduce using rule 16 (expr -> expr DOT OBJECTID LPAREN arg_list RPAREN .)
+    COMMA           reduce using rule 16 (expr -> expr DOT OBJECTID LPAREN arg_list RPAREN .)
+    RBRACE          reduce using rule 16 (expr -> expr DOT OBJECTID LPAREN arg_list RPAREN .)
+    ELSE            reduce using rule 16 (expr -> expr DOT OBJECTID LPAREN arg_list RPAREN .)
+    POOL            reduce using rule 16 (expr -> expr DOT OBJECTID LPAREN arg_list RPAREN .)
+    FI              reduce using rule 16 (expr -> expr DOT OBJECTID LPAREN arg_list RPAREN .)
+    IN              reduce using rule 16 (expr -> expr DOT OBJECTID LPAREN arg_list RPAREN .)
+
+
+state 125
+
+    (17) expr -> expr AT TYPEID DOT OBJECTID LPAREN . arg_list RPAREN
+    (50) arg_list -> . arg_list COMMA expr
+    (51) arg_list -> . expr
+    (52) arg_list -> . empty
+    (15) expr -> . OBJECTID ASSIGN expr
+    (16) expr -> . expr DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> . expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (18) expr -> . OBJECTID LPAREN arg_list RPAREN
+    (19) expr -> . IF expr THEN expr ELSE expr FI
+    (20) expr -> . WHILE expr LOOP expr POOL
+    (21) expr -> . LBRACE expr_list RBRACE
+    (24) expr -> . LET let_bindings IN expr
+    (29) expr -> . CASE expr OF case_list ESAC
+    (33) expr -> . NEW TYPEID
+    (34) expr -> . ISVOID expr
+    (35) expr -> . expr PLUS expr
+    (36) expr -> . expr MINUS expr
+    (37) expr -> . expr MULT expr
+    (38) expr -> . expr DIV expr
+    (39) expr -> . expr LT expr
+    (40) expr -> . expr LE expr
+    (41) expr -> . expr EQ expr
+    (42) expr -> . NOT expr
+    (43) expr -> . TILDE expr
+    (44) expr -> . LPAREN expr RPAREN
+    (45) expr -> . OBJECTID
+    (46) expr -> . INT_CONST
+    (47) expr -> . STR_CONST
+    (48) expr -> . BOOL_CONST
+    (49) expr -> . SELF
+    (53) empty -> .
+
+    OBJECTID        shift and go to state 35
+    IF              shift and go to state 38
+    WHILE           shift and go to state 39
+    LBRACE          shift and go to state 40
+    LET             shift and go to state 41
+    CASE            shift and go to state 42
+    NEW             shift and go to state 43
+    ISVOID          shift and go to state 44
+    NOT             shift and go to state 45
+    TILDE           shift and go to state 46
+    LPAREN          shift and go to state 37
+    INT_CONST       shift and go to state 47
+    STR_CONST       shift and go to state 48
+    BOOL_CONST      shift and go to state 49
+    SELF            shift and go to state 50
+    RPAREN          reduce using rule 53 (empty -> .)
+    COMMA           reduce using rule 53 (empty -> .)
+
+    expr                           shift and go to state 79
+    arg_list                       shift and go to state 129
+    empty                          shift and go to state 80
+
+state 126
+
+    (19) expr -> IF expr THEN expr ELSE expr . FI
+    (16) expr -> expr . DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> expr . AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (35) expr -> expr . PLUS expr
+    (36) expr -> expr . MINUS expr
+    (37) expr -> expr . MULT expr
+    (38) expr -> expr . DIV expr
+    (39) expr -> expr . LT expr
+    (40) expr -> expr . LE expr
+    (41) expr -> expr . EQ expr
+
+    FI              shift and go to state 130
+    DOT             shift and go to state 54
+    AT              shift and go to state 55
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    MULT            shift and go to state 58
+    DIV             shift and go to state 59
+    LT              shift and go to state 60
+    LE              shift and go to state 61
+    EQ              shift and go to state 62
+
+
+state 127
+
+    (27) let_binding -> OBJECTID COLON TYPEID ASSIGN expr .
+    (16) expr -> expr . DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> expr . AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (35) expr -> expr . PLUS expr
+    (36) expr -> expr . MINUS expr
+    (37) expr -> expr . MULT expr
+    (38) expr -> expr . DIV expr
+    (39) expr -> expr . LT expr
+    (40) expr -> expr . LE expr
+    (41) expr -> expr . EQ expr
+
+    IN              reduce using rule 27 (let_binding -> OBJECTID COLON TYPEID ASSIGN expr .)
+    COMMA           reduce using rule 27 (let_binding -> OBJECTID COLON TYPEID ASSIGN expr .)
+    DOT             shift and go to state 54
+    AT              shift and go to state 55
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    MULT            shift and go to state 58
+    DIV             shift and go to state 59
+    LT              shift and go to state 60
+    LE              shift and go to state 61
+    EQ              shift and go to state 62
+
+
+state 128
+
+    (32) case_branch -> OBJECTID COLON TYPEID . DARROW expr SEMICOLON
+
+    DARROW          shift and go to state 131
+
+
+state 129
+
+    (17) expr -> expr AT TYPEID DOT OBJECTID LPAREN arg_list . RPAREN
+    (50) arg_list -> arg_list . COMMA expr
+
+    RPAREN          shift and go to state 132
+    COMMA           shift and go to state 102
+
+
+state 130
+
+    (19) expr -> IF expr THEN expr ELSE expr FI .
+
+    DOT             reduce using rule 19 (expr -> IF expr THEN expr ELSE expr FI .)
+    AT              reduce using rule 19 (expr -> IF expr THEN expr ELSE expr FI .)
+    PLUS            reduce using rule 19 (expr -> IF expr THEN expr ELSE expr FI .)
+    MINUS           reduce using rule 19 (expr -> IF expr THEN expr ELSE expr FI .)
+    MULT            reduce using rule 19 (expr -> IF expr THEN expr ELSE expr FI .)
+    DIV             reduce using rule 19 (expr -> IF expr THEN expr ELSE expr FI .)
+    LT              reduce using rule 19 (expr -> IF expr THEN expr ELSE expr FI .)
+    LE              reduce using rule 19 (expr -> IF expr THEN expr ELSE expr FI .)
+    EQ              reduce using rule 19 (expr -> IF expr THEN expr ELSE expr FI .)
+    SEMICOLON       reduce using rule 19 (expr -> IF expr THEN expr ELSE expr FI .)
+    RPAREN          reduce using rule 19 (expr -> IF expr THEN expr ELSE expr FI .)
+    THEN            reduce using rule 19 (expr -> IF expr THEN expr ELSE expr FI .)
+    LOOP            reduce using rule 19 (expr -> IF expr THEN expr ELSE expr FI .)
+    OF              reduce using rule 19 (expr -> IF expr THEN expr ELSE expr FI .)
+    COMMA           reduce using rule 19 (expr -> IF expr THEN expr ELSE expr FI .)
+    RBRACE          reduce using rule 19 (expr -> IF expr THEN expr ELSE expr FI .)
+    ELSE            reduce using rule 19 (expr -> IF expr THEN expr ELSE expr FI .)
+    POOL            reduce using rule 19 (expr -> IF expr THEN expr ELSE expr FI .)
+    FI              reduce using rule 19 (expr -> IF expr THEN expr ELSE expr FI .)
+    IN              reduce using rule 19 (expr -> IF expr THEN expr ELSE expr FI .)
+
+
+state 131
+
+    (32) case_branch -> OBJECTID COLON TYPEID DARROW . expr SEMICOLON
+    (15) expr -> . OBJECTID ASSIGN expr
+    (16) expr -> . expr DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> . expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (18) expr -> . OBJECTID LPAREN arg_list RPAREN
+    (19) expr -> . IF expr THEN expr ELSE expr FI
+    (20) expr -> . WHILE expr LOOP expr POOL
+    (21) expr -> . LBRACE expr_list RBRACE
+    (24) expr -> . LET let_bindings IN expr
+    (29) expr -> . CASE expr OF case_list ESAC
+    (33) expr -> . NEW TYPEID
+    (34) expr -> . ISVOID expr
+    (35) expr -> . expr PLUS expr
+    (36) expr -> . expr MINUS expr
+    (37) expr -> . expr MULT expr
+    (38) expr -> . expr DIV expr
+    (39) expr -> . expr LT expr
+    (40) expr -> . expr LE expr
+    (41) expr -> . expr EQ expr
+    (42) expr -> . NOT expr
+    (43) expr -> . TILDE expr
+    (44) expr -> . LPAREN expr RPAREN
+    (45) expr -> . OBJECTID
+    (46) expr -> . INT_CONST
+    (47) expr -> . STR_CONST
+    (48) expr -> . BOOL_CONST
+    (49) expr -> . SELF
+
+    OBJECTID        shift and go to state 35
+    IF              shift and go to state 38
+    WHILE           shift and go to state 39
+    LBRACE          shift and go to state 40
+    LET             shift and go to state 41
+    CASE            shift and go to state 42
+    NEW             shift and go to state 43
+    ISVOID          shift and go to state 44
+    NOT             shift and go to state 45
+    TILDE           shift and go to state 46
+    LPAREN          shift and go to state 37
+    INT_CONST       shift and go to state 47
+    STR_CONST       shift and go to state 48
+    BOOL_CONST      shift and go to state 49
+    SELF            shift and go to state 50
+
+    expr                           shift and go to state 133
+
+state 132
+
+    (17) expr -> expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN .
+
+    DOT             reduce using rule 17 (expr -> expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN .)
+    AT              reduce using rule 17 (expr -> expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN .)
+    PLUS            reduce using rule 17 (expr -> expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN .)
+    MINUS           reduce using rule 17 (expr -> expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN .)
+    MULT            reduce using rule 17 (expr -> expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN .)
+    DIV             reduce using rule 17 (expr -> expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN .)
+    LT              reduce using rule 17 (expr -> expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN .)
+    LE              reduce using rule 17 (expr -> expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN .)
+    EQ              reduce using rule 17 (expr -> expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN .)
+    SEMICOLON       reduce using rule 17 (expr -> expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN .)
+    RPAREN          reduce using rule 17 (expr -> expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN .)
+    THEN            reduce using rule 17 (expr -> expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN .)
+    LOOP            reduce using rule 17 (expr -> expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN .)
+    OF              reduce using rule 17 (expr -> expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN .)
+    COMMA           reduce using rule 17 (expr -> expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN .)
+    RBRACE          reduce using rule 17 (expr -> expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN .)
+    ELSE            reduce using rule 17 (expr -> expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN .)
+    POOL            reduce using rule 17 (expr -> expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN .)
+    FI              reduce using rule 17 (expr -> expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN .)
+    IN              reduce using rule 17 (expr -> expr AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN .)
+
+
+state 133
+
+    (32) case_branch -> OBJECTID COLON TYPEID DARROW expr . SEMICOLON
+    (16) expr -> expr . DOT OBJECTID LPAREN arg_list RPAREN
+    (17) expr -> expr . AT TYPEID DOT OBJECTID LPAREN arg_list RPAREN
+    (35) expr -> expr . PLUS expr
+    (36) expr -> expr . MINUS expr
+    (37) expr -> expr . MULT expr
+    (38) expr -> expr . DIV expr
+    (39) expr -> expr . LT expr
+    (40) expr -> expr . LE expr
+    (41) expr -> expr . EQ expr
+
+    SEMICOLON       shift and go to state 134
+    DOT             shift and go to state 54
+    AT              shift and go to state 55
+    PLUS            shift and go to state 56
+    MINUS           shift and go to state 57
+    MULT            shift and go to state 58
+    DIV             shift and go to state 59
+    LT              shift and go to state 60
+    LE              shift and go to state 61
+    EQ              shift and go to state 62
+
+
+state 134
+
+    (32) case_branch -> OBJECTID COLON TYPEID DARROW expr SEMICOLON .
+
+    ESAC            reduce using rule 32 (case_branch -> OBJECTID COLON TYPEID DARROW expr SEMICOLON .)
+    OBJECTID        reduce using rule 32 (case_branch -> OBJECTID COLON TYPEID DARROW expr SEMICOLON .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for DOT in state 108 resolved as shift
+WARNING: shift/reduce conflict for AT in state 108 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 108 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 108 resolved as shift
+WARNING: shift/reduce conflict for MULT in state 108 resolved as shift
+WARNING: shift/reduce conflict for DIV in state 108 resolved as shift
+WARNING: shift/reduce conflict for LT in state 108 resolved as shift
+WARNING: shift/reduce conflict for LE in state 108 resolved as shift
+WARNING: shift/reduce conflict for EQ in state 108 resolved as shift

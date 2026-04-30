@@ -88,9 +88,19 @@ def t_TYPEID(t):
     t.type = reserved.get(t.value, 'TYPEID')
     return t
 
+def t_BOOL_CONST(t):
+    r't[rR][uU][eE]|f[aA][lL][sS][eE]'
+    t.value = True if t.value.lower() == 'true' else False
+    return t
+
 def t_OBJECTID(t):
     r'[a-z][a-zA-Z0-9_]*'
-    t.type = reserved.get(t.value, 'OBJECTID')
+    # Converte para minúsculo para bater com as chaves do dicionário 'reserved'
+    val_lower = t.value.lower()
+    if val_lower in reserved:
+        t.type = reserved[val_lower]
+    else:
+        t.type = 'OBJECTID'
     return t
 
 
@@ -101,13 +111,11 @@ def t_INT_CONST(t):
 
 def t_STR_CONST(t):
     r'\"([^\\\n]|(\\.))*?\"'
-    t.value = t.value[1:-1]  # Remove as aspas
-    return t
-
-
-def t_BOOL_CONST(t):
-    r't[rR][uU][eE]|f[aA][lL][sS][eE]'
-    t.value = True if t.value.lower() == 'true' else False
+    content = t.value[1:-1]
+    if len(content) > 1024:
+        print("Erro: String muito longa!")
+        # Lógica de erro aqui
+    t.value = content
     return t
 
 # Ignorar espaços e tabs
