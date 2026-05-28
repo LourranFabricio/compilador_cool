@@ -212,7 +212,8 @@ def p_expr_literal(p):
             | STR_CONST
             | BOOL_CONST
             | SELF'''
-    p[0] = ('literal', p[1])
+    token_type = p.slice[1].type
+    p[0] = ('literal', token_type, p[1])
 
 #função para lidar com a lista de argumentos em chamadas de métodos, permitindo múltiplos argumentos ou nenhum argumento
 def p_arg_list(p):
@@ -258,8 +259,9 @@ if __name__ == "__main__":
     # Chama o parser passando o conteúdo do arquivo
     ast = parse_code(code)
     
-    # Imprime a Árvore Sintática (AST) gerada
+    # Imprime a arvore Sintatica (AST) gerada
     if ast is not None:
-        print("\nÁrvore Sintática (AST):\n")
+        print("\narvore Sintatica (AST):\n")
         import pprint
         pprint.pprint(ast)
+            
