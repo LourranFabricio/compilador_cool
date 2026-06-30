@@ -1,0 +1,22 @@
+[build-system]
+requires = ["flit_core >=3.11,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "brench"
+dynamic = ["version", "description"]
+authors = [
+    {name = "Adrian Sampson", email = "asampson@cs.cornell.edu"},
+]
+license = "MIT"
+requires-python = ">=3.7"
+dependencies = [
+    "click",
+    "tomli; python_version < '3.11'",
+]
+
+[project.urls]
+source = "https://github.com/sampsyo/bril"
+
+[project.scripts]
+brench = "brench:brench"
