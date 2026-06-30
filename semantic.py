@@ -42,12 +42,25 @@ class TypeEnvironment:
             'Bool': ClassInfo('Bool', 'Object'),
             'String': ClassInfo('String', 'Object')
         }
+        self._seed_builtins()
+
+    def _seed_builtins(self):
+        self.classes['Object'].add_method('abort', [], 'Object')
+        self.classes['Object'].add_method('type_name', [], 'String')
+        self.classes['Object'].add_method('copy', [], 'SELF_TYPE')
+
+        self.classes['IO'].add_method('out_string', [('x', 'String')], 'SELF_TYPE')
+        self.classes['IO'].add_method('out_int', [('x', 'Int')], 'SELF_TYPE')
+        self.classes['IO'].add_method('in_string', [], 'String')
+        self.classes['IO'].add_method('in_int', [], 'Int')
+        self.classes['IO'].add_method('out_bool', [('x', 'Bool')], 'SELF_TYPE')
+        self.classes['IO'].add_method('in_bool', [], 'Bool')
 
     def add_class(self, name, parent):
         self.classes[name] = ClassInfo(name, parent)
 
     def is_defined(self, name):
-        return name in self.classes
+        return name in self.classes or name == 'SELF_TYPE'
 
     def get_parent(self, name):
         if name in self.classes:
@@ -130,6 +143,34 @@ class SemanticAnalyzer:
         self.cur_class = None
         self.scopes = [] # pilha de dicionarios pra variaveis
 
+    def resolve_type(self, tipo):
+        if tipo == 'SELF_TYPE':
+            return self.cur_class if self.cur_class is not None else 'Object'
+        return tipo
+
+    def type_conforms(self, tipo_atual, tipo_esperado):
+        if tipo_esperado == 'SELF_TYPE':
+            if tipo_atual == 'SELF_TYPE':
+                return True
+            return self.env.conforms(self.resolve_type(tipo_atual), self.cur_class)
+        if tipo_atual == 'SELF_TYPE':
+            return self.env.conforms(self.cur_class, self.resolve_type(tipo_esperado))
+        return self.env.conforms(tipo_atual, self.resolve_type(tipo_esperado))
+
+    def lca(self, tipos):
+        tipos = [self.resolve_type(t) for t in tipos if t is not None]
+        return self.env.get_lca(tipos)
+
+    def find_method(self, class_name, method_name):
+        if class_name == 'SELF_TYPE':
+            class_name = self.cur_class
+        return self.env.find_method(class_name, method_name)
+
+    def find_attr(self, class_name, attr_name):
+        if class_name == 'SELF_TYPE':
+            class_name = self.cur_class
+        return self.env.find_attr(class_name, attr_name)
+
     def log_error(self, msg):
         self.errors.append(msg)
 
@@ -202,7 +243,7 @@ class SemanticAnalyzer:
             self.log_error(f"Atributo {nome} ja existe no pai.")
         if init:
             tipo_init = self.check_expr(init)
-            if tipo_init and not self.env.conforms(tipo_init, tipo):
+            if tipo_init and not self.type_conforms(tipo_init, tipo):
                 self.log_error(f"Tipo {tipo_init} nao bate com {tipo} no atributo {nome}.")
 
     def check_method(self, f):
@@ -214,10 +255,17 @@ class SemanticAnalyzer:
         p_nomes = [p[1] for p in params]
         if len(set(p_nomes)) < len(p_nomes):
             self.log_error(f"Parametros repetidos no metodo {nome}.")
+        for p in params:
+            if p[1] == 'self':
+                self.log_error(f"Parametro {p[1]} no metodo {nome} e invalido.")
+            if p[2] == 'SELF_TYPE':
+                self.log_error(f"SELF_TYPE nao permitido como tipo de parametro no metodo {nome}.")
+            if not self.env.is_defined(p[2]):
+                self.log_error(f"Tipo {p[2]} do parametro {p[1]} nao existe.")
             
         # checa override
         pai = self.env.classes[self.cur_class].parent_name
-        res_pai = self.env.find_method(pai, nome)
+        res_pai = self.find_method(pai, nome)
         if res_pai:
             m_pai = res_pai[0]
             m_atual = MethodInfo(nome, [(p[1], p[2]) for p in params], ret)
@@ -235,7 +283,7 @@ class SemanticAnalyzer:
         tipo_corpo = self.check_expr(corpo)
         self.scopes.pop()
         
-        if tipo_corpo and not self.env.conforms(tipo_corpo, ret):
+        if tipo_corpo and not self.type_conforms(tipo_corpo, ret):
             self.log_error(f"Corpo do metodo {nome} retorna {tipo_corpo} mas devia ser {ret}.")
 
     def get_var_type(self, name):
@@ -270,18 +318,18 @@ class SemanticAnalyzer:
             else:
                 nome_m, args = expr[1], expr[2]
                 tipo_obj, estatico = self.cur_class, None
-            
+
             alvo = estatico or tipo_obj
             if estatico:
                 if not self.env.is_defined(estatico) or not self.env.conforms(tipo_obj, estatico):
                     self.log_error(f"Tipo estatico {estatico} invalido.")
                     alvo = 'Object'
-            
-            res_m = self.env.find_method(alvo, nome_m)
+
+            res_m = self.find_method(alvo, nome_m)
             if not res_m:
                 self.log_error(f"Metodo {nome_m} nao existe na classe {alvo}.")
                 return 'Object'
-            
+
             m_info = res_m[0]
             if len(args) != len(m_info.params):
                 self.log_error(f"Metodo {nome_m} precisa de {len(m_info.params)} args.")
@@ -289,11 +337,11 @@ class SemanticAnalyzer:
                 for i in range(len(args)):
                     t_arg = self.check_expr(args[i])
                     t_param = m_info.params[i][1]
-                    if t_arg and not self.env.conforms(t_arg, t_param):
+                    if t_arg and not self.type_conforms(t_arg, t_param):
                         self.log_error(f"Argumento {i} devia ser {t_param} mas e {t_arg}.")
-            
+
             if m_info.return_type == 'SELF_TYPE':
-                return tipo_obj
+                return self.resolve_type(tipo_obj)
             return m_info.return_type
 
         if tipo_no == 'if':
@@ -301,7 +349,7 @@ class SemanticAnalyzer:
                 self.log_error("Condicao do if tem que ser Bool.")
             t1 = self.check_expr(expr[2])
             t2 = self.check_expr(expr[3])
-            return self.env.get_lca([t1, t2])
+            return self.lca([t1, t2])
 
         if tipo_no == 'while':
             if self.check_expr(expr[1]) != 'Bool':
@@ -318,6 +366,11 @@ class SemanticAnalyzer:
         if tipo_no == 'let':
             self.scopes.append({})
             for _, n, t, init in expr[1]:
+                if n == 'self':
+                    self.log_error("Variavel let nao pode se chamar self.")
+                if t == 'SELF_TYPE':
+                    self.log_error("SELF_TYPE nao permitido em let.")
+                    t = 'Object'
                 if not self.env.is_defined(t):
                     self.log_error(f"Tipo {t} no let nao existe.")
                     t = 'Object'
@@ -326,7 +379,7 @@ class SemanticAnalyzer:
                 self.scopes[-1][n] = t
                 if init:
                     t_init = self.check_expr(init)
-                    if t_init and not self.env.conforms(t_init, t):
+                    if t_init and not self.type_conforms(t_init, t):
                         self.log_error(f"Inicializacao do let nao bate: {t_init} vs {t}.")
             res = self.check_expr(expr[2])
             self.scopes.pop()
@@ -337,6 +390,11 @@ class SemanticAnalyzer:
             tipos_ramos = []
             vistos = set()
             for _, n, t, e in expr[2]:
+                if n == 'self':
+                    self.log_error("Variavel de case nao pode se chamar self.")
+                if t == 'SELF_TYPE':
+                    self.log_error("SELF_TYPE nao permitido em case.")
+                    t = 'Object'
                 if not self.env.is_defined(t):
                     self.log_error(f"Tipo {t} no case nao existe.")
                     t = 'Object'
@@ -346,7 +404,7 @@ class SemanticAnalyzer:
                 self.scopes.append({n: t})
                 tipos_ramos.append(self.check_expr(e))
                 self.scopes.pop()
-            return self.env.get_lca(tipos_ramos)
+            return self.lca(tipos_ramos)
 
         if tipo_no == 'new':
             t = expr[1]

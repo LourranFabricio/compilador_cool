@@ -1,0 +1,872 @@
+{
+  "functions": [
+    {
+      "name": "Main_main",
+      "args": [
+        {
+          "name": "self",
+          "type": "ptr"
+        }
+      ],
+      "instrs": [
+        {
+          "op": "alloc",
+          "type": "ptr",
+          "dest": "v1",
+          "class": "Complex"
+        },
+        {
+          "op": "const",
+          "type": "int",
+          "value": 1,
+          "dest": "v2"
+        },
+        {
+          "op": "const",
+          "type": "int",
+          "value": 1,
+          "dest": "v3"
+        },
+        {
+          "op": "call",
+          "func": "dyn_init",
+          "args": [
+            "v1",
+            "v2",
+            "v3"
+          ],
+          "dest": "v4"
+        },
+        {
+          "op": "id",
+          "args": [
+            "v4"
+          ],
+          "dest": "c"
+        },
+        {
+          "op": "call",
+          "func": "dyn_reflect_X",
+          "args": [
+            "c"
+          ],
+          "dest": "v5"
+        },
+        {
+          "op": "call",
+          "func": "dyn_reflect_0",
+          "args": [
+            "c"
+          ],
+          "dest": "v6"
+        },
+        {
+          "op": "eq",
+          "type": "bool",
+          "args": [
+            "v5",
+            "v6"
+          ],
+          "dest": "v7"
+        },
+        {
+          "op": "br",
+          "args": [
+            "v7"
+          ],
+          "labels": [
+            "then1",
+            "else2"
+          ]
+        },
+        {
+          "label": "then1"
+        },
+        {
+          "op": "const",
+          "type": "ptr",
+          "value": "passed\\n",
+          "dest": "v8"
+        },
+        {
+          "op": "call",
+          "func": "dyn_out_string",
+          "args": [
+            "self",
+            "v8"
+          ],
+          "dest": "v9"
+        },
+        {
+          "op": "id",
+          "args": [
+            "v9"
+          ],
+          "dest": "v10"
+        },
+        {
+          "op": "jmp",
+          "labels": [
+            "end3"
+          ]
+        },
+        {
+          "label": "else2"
+        },
+        {
+          "op": "const",
+          "type": "ptr",
+          "value": "failed\\n",
+          "dest": "v11"
+        },
+        {
+          "op": "call",
+          "func": "dyn_out_string",
+          "args": [
+            "self",
+            "v11"
+          ],
+          "dest": "v12"
+        },
+        {
+          "op": "id",
+          "args": [
+            "v12"
+          ],
+          "dest": "v10"
+        },
+        {
+          "label": "end3"
+        },
+        {
+          "op": "call",
+          "func": "dyn_reflect_X",
+          "args": [
+            "c"
+          ],
+          "dest": "v13"
+        },
+        {
+          "op": "call",
+          "func": "dyn_reflect_Y",
+          "args": [
+            "v13"
+          ],
+          "dest": "v14"
+        },
+        {
+          "op": "call",
+          "func": "dyn_reflect_0",
+          "args": [
+            "c"
+          ],
+          "dest": "v15"
+        },
+        {
+          "op": "call",
+          "func": "dyn_equal",
+          "args": [
+            "v14",
+            "v15"
+          ],
+          "dest": "v16"
+        },
+        {
+          "op": "br",
+          "args": [
+            "v16"
+          ],
+          "labels": [
+            "then4",
+            "else5"
+          ]
+        },
+        {
+          "label": "then4"
+        },
+        {
+          "op": "const",
+          "type": "ptr",
+          "value": "passed\\n",
+          "dest": "v17"
+        },
+        {
+          "op": "call",
+          "func": "dyn_out_string",
+          "args": [
+            "self",
+            "v17"
+          ],
+          "dest": "v18"
+        },
+        {
+          "op": "id",
+          "args": [
+            "v18"
+          ],
+          "dest": "v19"
+        },
+        {
+          "op": "jmp",
+          "labels": [
+            "end6"
+          ]
+        },
+        {
+          "label": "else5"
+        },
+        {
+          "op": "const",
+          "type": "ptr",
+          "value": "failed\\n",
+          "dest": "v20"
+        },
+        {
+          "op": "call",
+          "func": "dyn_out_string",
+          "args": [
+            "self",
+            "v20"
+          ],
+          "dest": "v21"
+        },
+        {
+          "op": "id",
+          "args": [
+            "v21"
+          ],
+          "dest": "v19"
+        },
+        {
+          "label": "end6"
+        },
+        {
+          "op": "ret",
+          "args": [
+            "v19"
+          ]
+        }
+      ],
+      "returns": [
+        "ptr"
+      ]
+    },
+    {
+      "name": "Complex_init",
+      "args": [
+        {
+          "name": "self",
+          "type": "ptr"
+        },
+        {
+          "name": "a",
+          "type": "int"
+        },
+        {
+          "name": "b",
+          "type": "int"
+        }
+      ],
+      "instrs": [
+        {
+          "op": "set_attr",
+          "args": [
+            "self",
+            "a"
+          ],
+          "attr": "x"
+        },
+        {
+          "op": "set_attr",
+          "args": [
+            "self",
+            "b"
+          ],
+          "attr": "y"
+        },
+        {
+          "op": "ret",
+          "args": [
+            "self"
+          ]
+        }
+      ],
+      "returns": [
+        "ptr"
+      ]
+    },
+    {
+      "name": "Complex_print",
+      "args": [
+        {
+          "name": "self",
+          "type": "ptr"
+        }
+      ],
+      "instrs": [
+        {
+          "op": "get_attr",
+          "args": [
+            "self"
+          ],
+          "attr": "y",
+          "dest": "v22"
+        },
+        {
+          "op": "const",
+          "type": "int",
+          "value": 0,
+          "dest": "v23"
+        },
+        {
+          "op": "eq",
+          "type": "bool",
+          "args": [
+            "v22",
+            "v23"
+          ],
+          "dest": "v24"
+        },
+        {
+          "op": "br",
+          "args": [
+            "v24"
+          ],
+          "labels": [
+            "then7",
+            "else8"
+          ]
+        },
+        {
+          "label": "then7"
+        },
+        {
+          "op": "get_attr",
+          "args": [
+            "self"
+          ],
+          "attr": "x",
+          "dest": "v25"
+        },
+        {
+          "op": "call",
+          "func": "dyn_out_int",
+          "args": [
+            "self",
+            "v25"
+          ],
+          "dest": "v26"
+        },
+        {
+          "op": "id",
+          "args": [
+            "v26"
+          ],
+          "dest": "v27"
+        },
+        {
+          "op": "jmp",
+          "labels": [
+            "end9"
+          ]
+        },
+        {
+          "label": "else8"
+        },
+        {
+          "op": "get_attr",
+          "args": [
+            "self"
+          ],
+          "attr": "x",
+          "dest": "v28"
+        },
+        {
+          "op": "call",
+          "func": "dyn_out_int",
+          "args": [
+            "self",
+            "v28"
+          ],
+          "dest": "v29"
+        },
+        {
+          "op": "const",
+          "type": "ptr",
+          "value": "+",
+          "dest": "v30"
+        },
+        {
+          "op": "call",
+          "func": "dyn_out_string",
+          "args": [
+            "v29",
+            "v30"
+          ],
+          "dest": "v31"
+        },
+        {
+          "op": "get_attr",
+          "args": [
+            "self"
+          ],
+          "attr": "y",
+          "dest": "v32"
+        },
+        {
+          "op": "call",
+          "func": "dyn_out_int",
+          "args": [
+            "v31",
+            "v32"
+          ],
+          "dest": "v33"
+        },
+        {
+          "op": "const",
+          "type": "ptr",
+          "value": "I",
+          "dest": "v34"
+        },
+        {
+          "op": "call",
+          "func": "dyn_out_string",
+          "args": [
+            "v33",
+            "v34"
+          ],
+          "dest": "v35"
+        },
+        {
+          "op": "id",
+          "args": [
+            "v35"
+          ],
+          "dest": "v27"
+        },
+        {
+          "label": "end9"
+        },
+        {
+          "op": "ret",
+          "args": [
+            "v27"
+          ]
+        }
+      ],
+      "returns": [
+        "ptr"
+      ]
+    },
+    {
+      "name": "Complex_reflect_0",
+      "args": [
+        {
+          "name": "self",
+          "type": "ptr"
+        }
+      ],
+      "instrs": [
+        {
+          "op": "get_attr",
+          "args": [
+            "self"
+          ],
+          "attr": "x",
+          "dest": "v36"
+        },
+        {
+          "op": "const",
+          "type": "int",
+          "value": 0,
+          "dest": "v38"
+        },
+        {
+          "op": "sub",
+          "type": "int",
+          "args": [
+            "v38",
+            "v36"
+          ],
+          "dest": "v37"
+        },
+        {
+          "op": "set_attr",
+          "args": [
+            "self",
+            "v37"
+          ],
+          "attr": "x"
+        },
+        {
+          "op": "get_attr",
+          "args": [
+            "self"
+          ],
+          "attr": "y",
+          "dest": "v39"
+        },
+        {
+          "op": "const",
+          "type": "int",
+          "value": 0,
+          "dest": "v41"
+        },
+        {
+          "op": "sub",
+          "type": "int",
+          "args": [
+            "v41",
+            "v39"
+          ],
+          "dest": "v40"
+        },
+        {
+          "op": "set_attr",
+          "args": [
+            "self",
+            "v40"
+          ],
+          "attr": "y"
+        },
+        {
+          "op": "ret",
+          "args": [
+            "self"
+          ]
+        }
+      ],
+      "returns": [
+        "ptr"
+      ]
+    },
+    {
+      "name": "Complex_reflect_X",
+      "args": [
+        {
+          "name": "self",
+          "type": "ptr"
+        }
+      ],
+      "instrs": [
+        {
+          "op": "get_attr",
+          "args": [
+            "self"
+          ],
+          "attr": "y",
+          "dest": "v42"
+        },
+        {
+          "op": "const",
+          "type": "int",
+          "value": 0,
+          "dest": "v44"
+        },
+        {
+          "op": "sub",
+          "type": "int",
+          "args": [
+            "v44",
+            "v42"
+          ],
+          "dest": "v43"
+        },
+        {
+          "op": "set_attr",
+          "args": [
+            "self",
+            "v43"
+          ],
+          "attr": "y"
+        },
+        {
+          "op": "ret",
+          "args": [
+            "self"
+          ]
+        }
+      ],
+      "returns": [
+        "ptr"
+      ]
+    },
+    {
+      "name": "Complex_reflect_Y",
+      "args": [
+        {
+          "name": "self",
+          "type": "ptr"
+        }
+      ],
+      "instrs": [
+        {
+          "op": "get_attr",
+          "args": [
+            "self"
+          ],
+          "attr": "x",
+          "dest": "v45"
+        },
+        {
+          "op": "const",
+          "type": "int",
+          "value": 0,
+          "dest": "v47"
+        },
+        {
+          "op": "sub",
+          "type": "int",
+          "args": [
+            "v47",
+            "v45"
+          ],
+          "dest": "v46"
+        },
+        {
+          "op": "set_attr",
+          "args": [
+            "self",
+            "v46"
+          ],
+          "attr": "x"
+        },
+        {
+          "op": "ret",
+          "args": [
+            "self"
+          ]
+        }
+      ],
+      "returns": [
+        "ptr"
+      ]
+    },
+    {
+      "name": "Complex_equal",
+      "args": [
+        {
+          "name": "self",
+          "type": "ptr"
+        },
+        {
+          "name": "d",
+          "type": "ptr"
+        }
+      ],
+      "instrs": [
+        {
+          "op": "get_attr",
+          "args": [
+            "self"
+          ],
+          "attr": "x",
+          "dest": "v48"
+        },
+        {
+          "op": "call",
+          "func": "dyn_x_value",
+          "args": [
+            "d"
+          ],
+          "dest": "v49"
+        },
+        {
+          "op": "eq",
+          "type": "bool",
+          "args": [
+            "v48",
+            "v49"
+          ],
+          "dest": "v50"
+        },
+        {
+          "op": "br",
+          "args": [
+            "v50"
+          ],
+          "labels": [
+            "then10",
+            "else11"
+          ]
+        },
+        {
+          "label": "then10"
+        },
+        {
+          "op": "get_attr",
+          "args": [
+            "self"
+          ],
+          "attr": "y",
+          "dest": "v51"
+        },
+        {
+          "op": "call",
+          "func": "dyn_y_value",
+          "args": [
+            "d"
+          ],
+          "dest": "v52"
+        },
+        {
+          "op": "eq",
+          "type": "bool",
+          "args": [
+            "v51",
+            "v52"
+          ],
+          "dest": "v53"
+        },
+        {
+          "op": "br",
+          "args": [
+            "v53"
+          ],
+          "labels": [
+            "then13",
+            "else14"
+          ]
+        },
+        {
+          "label": "then13"
+        },
+        {
+          "op": "const",
+          "type": "bool",
+          "value": true,
+          "dest": "v54"
+        },
+        {
+          "op": "id",
+          "args": [
+            "v54"
+          ],
+          "dest": "v55"
+        },
+        {
+          "op": "jmp",
+          "labels": [
+            "end15"
+          ]
+        },
+        {
+          "label": "else14"
+        },
+        {
+          "op": "const",
+          "type": "bool",
+          "value": false,
+          "dest": "v56"
+        },
+        {
+          "op": "id",
+          "args": [
+            "v56"
+          ],
+          "dest": "v55"
+        },
+        {
+          "label": "end15"
+        },
+        {
+          "op": "id",
+          "args": [
+            "v55"
+          ],
+          "dest": "v57"
+        },
+        {
+          "op": "jmp",
+          "labels": [
+            "end12"
+          ]
+        },
+        {
+          "label": "else11"
+        },
+        {
+          "op": "const",
+          "type": "bool",
+          "value": false,
+          "dest": "v58"
+        },
+        {
+          "op": "id",
+          "args": [
+            "v58"
+          ],
+          "dest": "v57"
+        },
+        {
+          "label": "end12"
+        },
+        {
+          "op": "ret",
+          "args": [
+            "v57"
+          ]
+        }
+      ],
+      "returns": [
+        "bool"
+      ]
+    },
+    {
+      "name": "Complex_x_value",
+      "args": [
+        {
+          "name": "self",
+          "type": "ptr"
+        }
+      ],
+      "instrs": [
+        {
+          "op": "get_attr",
+          "args": [
+            "self"
+          ],
+          "attr": "x",
+          "dest": "v59"
+        },
+        {
+          "op": "ret",
+          "args": [
+            "v59"
+          ]
+        }
+      ],
+      "returns": [
+        "int"
+      ]
+    },
+    {
+      "name": "Complex_y_value",
+      "args": [
+        {
+          "name": "self",
+          "type": "ptr"
+        }
+      ],
+      "instrs": [
+        {
+          "op": "get_attr",
+          "args": [
+            "self"
+          ],
+          "attr": "y",
+          "dest": "v60"
+        },
+        {
+          "op": "ret",
+          "args": [
+            "v60"
+          ]
+        }
+      ],
+      "returns": [
+        "int"
+      ]
+    }
+  ]
+}
